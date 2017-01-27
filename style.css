@@ -4,14 +4,10 @@ https://css-tricks.com/box-sizing/*/
 * {
   box-sizing: border-box; }
 
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start; }
-
 .col-1 {
   width: 8.33333%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: orange; }
@@ -19,6 +15,7 @@ https://css-tricks.com/box-sizing/*/
 .col-2 {
   width: 16.66667%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: purple; }
@@ -26,6 +23,7 @@ https://css-tricks.com/box-sizing/*/
 .col-3 {
   width: 25%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: red; }
@@ -33,6 +31,7 @@ https://css-tricks.com/box-sizing/*/
 .col-4 {
   width: 33.33333%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: yellow; }
@@ -40,6 +39,7 @@ https://css-tricks.com/box-sizing/*/
 .col-5 {
   width: 41.66667%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: pink; }
@@ -47,6 +47,7 @@ https://css-tricks.com/box-sizing/*/
 .col-6 {
   width: 50%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: gray; }
@@ -54,6 +55,7 @@ https://css-tricks.com/box-sizing/*/
 .col-7 {
   width: 58.33333%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: brown; }
@@ -61,6 +63,7 @@ https://css-tricks.com/box-sizing/*/
 .col-8 {
   width: 66.66667%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: #676767; }
@@ -68,6 +71,7 @@ https://css-tricks.com/box-sizing/*/
 .col-9 {
   width: 75%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: blue; }
@@ -75,6 +79,7 @@ https://css-tricks.com/box-sizing/*/
 .col-10 {
   width: 83.33333%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: #cc8400; }
@@ -82,6 +87,7 @@ https://css-tricks.com/box-sizing/*/
 .col-11 {
   width: 91.66667%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: #3333ff; }
@@ -89,8 +95,31 @@ https://css-tricks.com/box-sizing/*/
 .col-12 {
   width: 100%;
   text-align: center;
+  height: 50px;
   border: 2px solid black;
   margin-top: 5px;
   background-color: #004d00; }
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: .8; }
+
+@media (max-width: 576px) {
+  .small-screen-stack {
+    width: 100%; } }
+
+@media (max-width: 768px) {
+  .medium-screen-stack {
+    width: 100%; } }
+
+@media (max-width: 992px) {
+  .large-screen-stack {
+    width: 100%; } }
+
+@media (max-width: 1200px) {
+  .extra-large-screen-stack {
+    width: 100%; } }
 
 /*# sourceMappingURL=style.css.map */

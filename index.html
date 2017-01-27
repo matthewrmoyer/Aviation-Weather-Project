@@ -1,22 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Movie Site</title>
-
-
-	<script src ="jquery.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <script src ="script.js"></script>
-
-
-</head>
-
-
-<body>
-
-<p class = "col-10"> asdf</p>
-
-
-
-</body>
+	<head>
+		<title>Aviation Wx</title>
+		<link rel="stylesheet" type="text/css" href="style.css">
+		<script src ="jquery.js"></script>
+		<script src ="script.js"></script>
+	</head>
+	<body>
+		<div class = "row">
+			<input class =  "col-7" type="text" name="airport-input" id = "airport-form-input" autofocus>
+			<input class = "col-3" type="submit" name="airport-submit" id = "airport-form-submit">
+		</div>
+		<br>
+		<div class = "row airport-heading-row">
+			<h3>Airport Code:</h3>
+			<h3 id = "airport-code-space"></h3>
+		</div>
+		<article class = "weather-info">
+			<div class = "row time-row"></div>
+			<div class = "row temperature-row"></div>
+			<div class = "row altimeter-row"></div>
+			<div class = "row dewpoint-row"></div>
+			<div class = "row visibility-row"></div>
+			<section class = "cloud">
+				<div class = "row cloud-heading-row">
+					<h4>Clouds</h4>
+				</div>
+				<div class = "row cloud-list-row"></div>
+			</section>
+			<section class = "wind">
+				<div class = "row wind-heading-row">
+					<h4>Wind</h4>
+				</div>
+				<div class = "row wind-direction-row"></div>
+				<div class = "row wind-speed-row"></div>
+				<div class = "row wind-gust-row"></div>
+				<div class = "row wind-variable-direction-row"></div>
+			</section>
+		</article>
+	</body>
 </html>
