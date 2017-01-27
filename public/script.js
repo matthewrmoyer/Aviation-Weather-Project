@@ -154,7 +154,7 @@ function showFlightRules(data) {
 
 
 
-		$.get("http://avwx.rest/api/metar/" + airportCode)
+		$.get("https://avwx.rest/api/metar/" + airportCode)
 			.then(successFunction)
 			
 
