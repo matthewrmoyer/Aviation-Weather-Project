@@ -7,104 +7,84 @@ https://css-tricks.com/box-sizing/*/
 .col-1 {
   width: 8.33333%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: orange; }
+  margin-top: 5px; }
 
 .col-2 {
   width: 16.66667%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: purple; }
+  margin-top: 5px; }
 
 .col-3 {
   width: 25%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: red; }
+  margin-top: 5px; }
 
 .col-4 {
   width: 33.33333%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: yellow; }
+  margin-top: 5px; }
 
 .col-5 {
   width: 41.66667%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: pink; }
+  margin-top: 5px; }
 
 .col-6 {
   width: 50%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: gray; }
+  margin-top: 5px; }
 
 .col-7 {
   width: 58.33333%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: brown; }
+  margin-top: 5px; }
 
 .col-8 {
   width: 66.66667%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: #676767; }
+  margin-top: 5px; }
 
 .col-9 {
   width: 75%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: blue; }
+  margin-top: 5px; }
 
 .col-10 {
   width: 83.33333%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: #cc8400; }
+  margin-top: 5px; }
 
 .col-11 {
   width: 91.66667%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: #3333ff; }
+  margin-top: 5px; }
 
 .col-12 {
   width: 100%;
   text-align: center;
-  height: 50px;
   border: 2px solid black;
-  margin-top: 5px;
-  background-color: #004d00; }
+  margin-top: 5px; }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   opacity: .8; }
+
+body {
+  font-size: calc(16px + 1vmax); }
 
 @media (max-width: 576px) {
   .small-screen-stack {
@@ -121,5 +101,29 @@ https://css-tricks.com/box-sizing/*/
 @media (max-width: 1200px) {
   .extra-large-screen-stack {
     width: 100%; } }
+
+section {
+  visibility: hidden;
+  margin-top: 50px; }
+
+#airport-form-input {
+  height: 5vh;
+  font-size: 3vh; }
+  #airport-form-input:valid {
+    text-transform: uppercase; }
+
+#airport-form-submit {
+  height: 5vh;
+  font-size: 3vh; }
+
+.airport-heading-row {
+  justify-content: center;
+  visibility: hidden; }
+
+.cloud-item {
+  flex: 1; }
+
+.wind-item {
+  flex: 1; }
 
 /*# sourceMappingURL=style.css.map */

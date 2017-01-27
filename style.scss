@@ -15,7 +15,6 @@ $extra-large-screen: "(max-width: 1200px)";
   width: (($cols/12)*100+0%);
   text-align: center;
   //can change height
-  height: 50px;
   //can change margin
   border: 2px solid black;
   margin-top: 5px;
@@ -23,73 +22,67 @@ $extra-large-screen: "(max-width: 1200px)";
 
 .col-1 {
   @include col(1);
-  background-color: orange;
 }
 
 .col-2 {
   @include col(2);
-  background-color: purple;
 }
 
 .col-3 {
   @include col(3);
-  background-color: red;
 }
 
 .col-4 {
   @include col(4);
-  background-color: yellow;
 }
 
 .col-5 {
   @include col(5);
-  background-color: pink;
 }
 
 .col-6 {
   @include col(6);
-  background-color: gray;
 }
 
 .col-7 {
   @include col(7);
-  background-color: brown;
 }
 
 .col-8 {
   @include col(8);
-  background-color: darken(grey, 10%);
 }
 
 .col-9 {
   @include col(9);
-  background-color: blue;
 }
 
 .col-10 {
   @include col(10);
-  background-color: darken(orange, 10%);
 }
 
 .col-11 {
   @include col(11);
-  background-color: lighten(blue, 10%);
 }
 
 .col-12 {
   @include col(12);
-  background-color: darken(green, 10%);
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-around;
+  align-items: center;
   opacity: .8;
   //add all container properties like this!!! it would be a cool mini-css framework!!!
   //do same for items with item properties?
 }
 
+
+
+body{
+  font-size: calc(16px + 1vmax);
+}
 .small-screen-stack {
   @media #{$small-screen} {
     width: 100%;
@@ -113,3 +106,41 @@ $extra-large-screen: "(max-width: 1200px)";
     width: 100%;
   }
 }
+
+
+section{
+  visibility: hidden;
+  margin-top: 50px;
+}
+
+#airport-form-input{
+  height: 5vh;
+  font-size: 3vh;
+   &:valid{
+      text-transform: uppercase;
+    }
+}
+
+#airport-form-submit{
+  height: 5vh;
+    font-size: 3vh;
+
+
+}
+
+.airport-heading-row{
+  justify-content: center;
+  visibility: hidden;
+}
+
+.cloud-item{
+  flex:1;
+}
+
+.wind-item{
+  flex: 1;
+}
+
+
+
+

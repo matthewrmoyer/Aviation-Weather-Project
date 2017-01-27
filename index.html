@@ -8,20 +8,31 @@
 	</head>
 	<body>
 		<div class = "row">
-			<input class =  "col-7" type="text" name="airport-input" id = "airport-form-input" autofocus>
+			<input class =  "col-7" type="text" placeholder="Enter ICAO Code" name="airport-input" id = "airport-form-input" autofocus>
 			<input class = "col-3" type="submit" name="airport-submit" id = "airport-form-submit">
 		</div>
 		<br>
-		<div class = "row airport-heading-row">
-			<h3>Airport Code:</h3>
-			<h3 id = "airport-code-space"></h3>
-		</div>
+		
 		<article class = "weather-info">
-			<div class = "row time-row"></div>
-			<div class = "row temperature-row"></div>
-			<div class = "row altimeter-row"></div>
-			<div class = "row dewpoint-row"></div>
-			<div class = "row visibility-row"></div>
+			<section class = "general">
+				<div class = "row airport-heading-row">
+					<h5>Airport Code: &nbsp</h5>
+					<h5 id = "airport-code-space"></h5>
+				</div>
+				<div class = "row station-row"></div>
+				<div class = "row time-row"></div>
+			</section>
+			
+			<section>
+				<div class = "row temperature-row"></div>
+				<div class = "row altimeter-row"></div>
+				<div class = "row dewpoint-row"></div>
+			</section>
+			<section class = "flight-rules">
+				<div class = "row flight-rules-row"></div>
+				
+				<div class = "row visibility-row"></div>
+			</section>
 			<section class = "cloud">
 				<div class = "row cloud-heading-row">
 					<h4>Clouds</h4>
@@ -32,10 +43,7 @@
 				<div class = "row wind-heading-row">
 					<h4>Wind</h4>
 				</div>
-				<div class = "row wind-direction-row"></div>
-				<div class = "row wind-speed-row"></div>
-				<div class = "row wind-gust-row"></div>
-				<div class = "row wind-variable-direction-row"></div>
+				<div class = "row wind-row"></div>
 			</section>
 		</article>
 	</body>

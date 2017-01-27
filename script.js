@@ -29,65 +29,91 @@ $(document).ready(function() {
 
 	}
 
+
+	function showStation(data) {
+		var station = data["Station"];
+		$(".station-row").text("Station: " + station);
+
+	}
+
+function showFlightRules(data) {
+		var flightRules = data["Flight-Rules"];
+		$(".flight-rules-row").text("Flight Rules: " + flightRules);
+
+	}
+
 	function showAltimeter(data) {
 		var altimeter = data["Altimeter"];
 		var altimeterUnits = data["Units"]["Altimeter"];
-		$(".altimeter-row").text("Altimeter: " + altimeter + " " +altimeterUnits);
+		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
 
 	}
 
 	function showCloudList(data) {
+
+		$(".cloud-list-row").empty();
 		var cloudList = data["Cloud-List"];
-		cloudList.forEach(function(cloudInfo){
+		cloudList.forEach(function(cloudInfo) {
 			console.log(cloudInfo);
-			cloudInfo.forEach(function(cloudInfoNested){
+			cloudInfo.forEach(function(cloudInfoNested) {
 				console.log(cloudInfoNested)
 			})
-			$(".cloud").append("<div class = 'row'>" + cloudInfo[0] + ": " + cloudInfo[1] + "</div>");
+			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "</div>");
 
 
-		})		
+		})
 	}
 
 	function showTemperature(data) {
 		var temperature = data["Temperature"];
 		var temperatureUnit = data["Units"]["Temperature"]
-		$(".temperature-row").text("Temperature: " + temperature+ " " + temperatureUnit);
+		$(".temperature-row").text("Temperature: " + temperature + " " + temperatureUnit);
 
 	}
 
 	function showDewpoint(data) {
 		var dewpoint = data["Dewpoint"];
-		$(".dewpoint-row").text("Dewpoint: " + dewpoint);
+				var temperatureUnit = data["Units"]["Temperature"]
+
+		$(".dewpoint-row").text("Dewpoint: " + dewpoint + " " + temperatureUnit);
 
 	}
 
 	function showVisibility(data) {
 		var visibility = data["Visibility"];
 		var visibilityUnit = data["Units"]["Visibility"]
-		$(".temperature-row").text("Visibility: " + visibility+ " " + visibilityUnit);
+		$(".visibility-row").text("Visibility: " + visibility + " " + visibilityUnit);
 
 	}
-function showWindDirection(data) {
+
+	function showWindDirection(data) {
 		var windDirection = data["Wind-Direction"];
-		$(".wind-direction-row").text("Wind Direction: " + windDirection);
+		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Direction: " + windDirection + "</div>");
 	}
+
 	function showWindSpeed(data) {
 		var windSpeed = data["Wind-Speed"];
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
-		$(".wind-speed-row").text("Wind Speed: " + windSpeed +" " + windSpeedUnit);
+		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + "" + windSpeedUnit + "</div>");
 
 	}
+
 	function showWindGust(data) {
 		var windGust = data["Wind-Gust"];
-				var windSpeedUnit = data["Units"]["Wind-Speed"];
+		var windSpeedUnit = data["Units"]["Wind-Speed"];
 
-		$(".wind-gust-row").text("Wind Gust: " + windGust +" " + windSpeedUnit);
-
+		if (windGust) {
+			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Gust: " + windGust + " " + windSpeedUnit + "</div>");
+		}
 	}
+
 	function showWindVariableDirection(data) {
 		var windVariableDirection = data["Wind-Variable-Dir"];
-		$(".wind-variable-direction-row").text("Wind Variable Direction: " + windVariableDirection);
+
+
+		if (windVariableDirection.length > 0) {
+			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection + "</div>");
+		}
 
 	}
 	//hitting enter on input field triggers submit button click
@@ -99,7 +125,10 @@ function showWindDirection(data) {
 
 	function successFunction(data) {
 		console.log(data);
+		$(".wind-row").empty();
 		showTime(data);
+		showStation(data);
+		showFlightRules(data);
 		showTemperature(data);
 		showAltimeter(data);
 		showCloudList(data);
@@ -109,15 +138,17 @@ function showWindDirection(data) {
 		showWindSpeed(data);
 		showWindGust(data);
 		showWindVariableDirection(data);
+		$("section").css("visibility", "visible");
+		$(".airport-heading-row").css("visibility", "visible");
 	}
 
 	function rejectFunction() {
 		airportCodeSpace.text("Airport Code Not Recognized");
+		console.log("rejected");
 	}
 
 	submitButton.on("click", function() {
 		event.preventDefault()
-		console.log("click!");
 		getAirportCode();
 		displayAirportCode();
 
@@ -125,6 +156,7 @@ function showWindDirection(data) {
 
 		$.get("http://avwx.rest/api/metar/" + airportCode)
 			.then(successFunction)
+			
 
 
 	})
