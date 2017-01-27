@@ -82,6 +82,7 @@ $extra-large-screen: "(max-width: 1200px)";
 
 body{
   font-size: calc(16px + 1vmax);
+  background-color: grey; 
 }
 .small-screen-stack {
   @media #{$small-screen} {
@@ -119,13 +120,19 @@ section{
    &:valid{
       text-transform: uppercase;
     }
+
+     @media #{$medium-screen}{
+      height: 10vmax;
+  }
 }
 
 #airport-form-submit{
   height: 5vh;
     font-size: 3vh;
 
-
+    @media #{$medium-screen}{
+      height: 10vmax;
+  }
 }
 
 .airport-heading-row{
