@@ -71,6 +71,12 @@ $(document).ready(function() {
 
 	function showAltimeter(data) {
 		var altimeter = data["Altimeter"];
+		altimeter = altimeter.toString().split("");
+		altimeter.splice(2, 0, ".");
+		altimeter = altimeter.join("");
+
+		console.log(altimeter);
+		//TODO add decimal after 2 digits of altimter
 		//get altimeter units from the units object inside of data
 		var altimeterUnits = data["Units"]["Altimeter"];
 		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
