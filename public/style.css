@@ -133,4 +133,10 @@ section {
 .wind-item {
   flex: 1; }
 
+.visibility-hidden {
+  visibility: hidden; }
+
+.display-none {
+  display: none; }
+
 /*# sourceMappingURL=style.css.map */
