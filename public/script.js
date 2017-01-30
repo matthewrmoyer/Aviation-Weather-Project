@@ -18,26 +18,24 @@ $(document).ready(function() {
 	}
 
 
-//if ajax request comes with a station lookup error, this function will run
-		function checkError(data){
+	//if ajax request comes with a station lookup error, this function will run
+	function checkError(data) {
 		var errorHeading = document.getElementById("error-heading");
 		//empty the error heading so that it doesnt stack text if user enters mulitple incorrect airport codes
 		$errorHeading.empty();
-			if(data["Error"]){
-				console.log("NOT AN AIRPORT");
-				//set error heading text to "airport not found"
-				errorHeading.innerHTML = "Airport Not Found";
-				//hide of the stuff in weather info article
-				//won't show previous airport search info  if there is an error on the current search
-				$(".weather-info").addClass("display-none");
-			}
-
-			else{
-				//if there isnt an error get rid of the display none class if it was previously added
-				$(".weather-info").removeClass("display-none");
-			}
-
+		if (data["Error"]) {
+			console.log("NOT AN AIRPORT");
+			//set error heading text to "airport not found"
+			errorHeading.innerHTML = "Airport Not Found";
+			//hide of the stuff in weather info article
+			//won't show previous airport search info  if there is an error on the current search
+			$(".weather-info").addClass("display-none");
+		} else {
+			//if there isnt an error get rid of the display none class if it was previously added
+			$(".weather-info").removeClass("display-none");
 		}
+
+	}
 
 
 	function displayAirportCode() {
@@ -50,7 +48,7 @@ $(document).ready(function() {
 		//set time = data's time's value 
 		var time = data["Time"];
 		//write the time to the page
-		$(".time-row").text("Zulu Time: " + time);
+		$(".time-row").text("Zulu Date and Time: " + time);
 
 	}
 
@@ -71,12 +69,14 @@ $(document).ready(function() {
 
 	function showAltimeter(data) {
 		var altimeter = data["Altimeter"];
+		//put decimal after two digits of altimeter
+		//change to string and split it into an array with nothing in between each element
 		altimeter = altimeter.toString().split("");
+		//inject a "." at index 2 and delete 0 elements
 		altimeter.splice(2, 0, ".");
+		//join the array back together
 		altimeter = altimeter.join("");
 
-		console.log(altimeter);
-		//TODO add decimal after 2 digits of altimter
 		//get altimeter units from the units object inside of data
 		var altimeterUnits = data["Units"]["Altimeter"];
 		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
@@ -90,10 +90,12 @@ $(document).ready(function() {
 		//cloudList is an array of cloud arrays
 		var cloudList = data["Cloud-List"];
 		cloudList.forEach(function(cloudInfo) {
+
+			console.log("Cloud List: " + cloudList);
 			//log each array separately 
 			//cloudInfo is an array with a key value pairs setup
 			//i.e.: ["FEW", "100"]
-			console.log(cloudInfo);
+			console.log("Clound Info: " + cloudInfo);
 			//log each nested array's elements
 			cloudInfo.forEach(function(cloudInfoNested) {
 				console.log(cloudInfoNested)
@@ -102,6 +104,38 @@ $(document).ready(function() {
 
 
 		})
+	}
+
+
+	//ceiling is the first layer of clouds that are broken or overcast
+	//the codes for these are BKN and OVC respectively 
+	//Step 1: Get cloud list from data
+	//Step 2: Iterate over cloudlist to find first "BKN" or "OVC"
+	//Step 3: Set variables to the BKN/OVC and the next element
+	//Step 4: Write the variables to the ceiling-row
+
+	//return the ceiling
+	function createCeiling(data) {
+		var cloudList = data["Cloud-List"];
+		for (i = 0; i < cloudList.length; i++) {
+			console.log(cloudList[i]);
+			if (cloudList[i][0] == "BKN" || cloudList[i][0] == "OVC") {
+				var ceiling = cloudList[i][0] + " " + cloudList[i][1];
+				return ceiling;
+				break;
+			}
+		}
+	}
+
+	//add ceiling to page
+	function showCeiling(data) {
+		var ceiling = createCeiling(data);
+		if (ceiling) {
+			$(".ceiling-row").text("Ceiling: " + ceiling + "00" + " ft");
+		} else {
+			$(".ceiling-row").text("No Reported Ceiling");
+
+		}
 	}
 
 	function showTemperature(data) {
@@ -118,8 +152,8 @@ $(document).ready(function() {
 		var dewpoint = dewpoint.toString().split("");
 		//minus 10 degrees comes back as M10
 		//this is changing M10 to -10
-		if(dewpoint[0]=="M"){
-			dewpoint[0]="-"
+		if (dewpoint[0] == "M") {
+			dewpoint[0] = "-"
 		}
 		dewpoint = dewpoint.join("");
 		$(".dewpoint-row").text("Dewpoint: " + dewpoint + " " + temperatureUnit);
@@ -187,6 +221,8 @@ $(document).ready(function() {
 		showWindSpeed(data);
 		showWindGust(data);
 		showWindVariableDirection(data);
+		createCeiling(data);
+		showCeiling(data);
 		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
 		$(".airport-heading-row").css("visibility", "visible");
@@ -195,7 +231,7 @@ $(document).ready(function() {
 
 	//do if ajax request fails
 	function rejectFunction() {
-		
+
 	}
 
 	$submitButton.on("click", function() {
