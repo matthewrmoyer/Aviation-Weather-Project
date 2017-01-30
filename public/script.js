@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 	}
 
-function showFlightRules(data) {
+	function showFlightRules(data) {
 		var flightRules = data["Flight-Rules"];
 		$(".flight-rules-row").text("Flight Rules: " + flightRules);
 
@@ -66,22 +66,29 @@ function showFlightRules(data) {
 
 	function showTemperature(data) {
 		var temperature = data["Temperature"];
-		var temperatureUnit = data["Units"]["Temperature"]
+		var temperatureUnit = data["Units"]["Temperature"];
 		$(".temperature-row").text("Temperature: " + temperature + " " + temperatureUnit);
 
 	}
 
 	function showDewpoint(data) {
 		var dewpoint = data["Dewpoint"];
-				var temperatureUnit = data["Units"]["Temperature"]
+		var temperatureUnit = data["Units"]["Temperature"];
 
+		var dewpoint = dewpoint.toString().split("");
+		//minus 10 degrees comes back as M10
+		//this is changing M10 to -10
+		if(dewpoint[0]=="M"){
+			dewpoint[0]="-"
+		}
+		dewpoint = dewpoint.join("");
 		$(".dewpoint-row").text("Dewpoint: " + dewpoint + " " + temperatureUnit);
 
 	}
 
 	function showVisibility(data) {
 		var visibility = data["Visibility"];
-		var visibilityUnit = data["Units"]["Visibility"]
+		var visibilityUnit = data["Units"]["Visibility"];
 		$(".visibility-row").text("Visibility: " + visibility + " " + visibilityUnit);
 
 	}
@@ -156,7 +163,7 @@ function showFlightRules(data) {
 
 		$.get("https://avwx.rest/api/metar/" + airportCode)
 			.then(successFunction)
-			
+
 
 
 	})
