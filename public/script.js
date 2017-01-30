@@ -1,27 +1,31 @@
 $(document).ready(function() {
 
 
-	//html element variables
-	var submitButton = $("#airport-form-submit");
-	var airportInput = $("#airport-form-input");
-	var airportCodeSpace = $("#airport-code-space");
+	//global variables
+	var $submitButton = $("#airport-form-submit");
+	var $airportInput = $("#airport-form-input");
+	var $airportCodeSpace = $("#airport-code-space");
+	var $airportFormInput = $("#airport-form-input");
+	var $errorHeading = $("#error-heading");
 	var airportCode;
 
 
 
-	//get airport code from user input function
+	//set airport code variable to user input 
 	function getAirportCode() {
-		airportCode = document.getElementById("airport-form-input").value.toUpperCase();
+		airportCode = $airportFormInput.val().toUpperCase();
 		console.log(airportCode);
 	}
 
 
-//if ajax request comes with a station lookup error
+//if ajax request comes with a station lookup error, this function will run
 		function checkError(data){
 		var errorHeading = document.getElementById("error-heading");
-		$("#error-heading").empty();
+		//empty the error heading so that it doesnt stack text if user enters mulitple incorrect airport codes
+		$errorHeading.empty();
 			if(data["Error"]){
 				console.log("NOT AN AIRPORT");
+				//set error heading text to "airport not found"
 				errorHeading.innerHTML = "Airport Not Found";
 				//hide of the stuff in weather info article
 				//won't show previous airport search info  if there is an error on the current search
@@ -35,8 +39,9 @@ $(document).ready(function() {
 
 		}
 
+
 	function displayAirportCode() {
-		airportCodeSpace.text(airportCode);
+		$airportCodeSpace.text(airportCode);
 	}
 
 
@@ -66,6 +71,7 @@ $(document).ready(function() {
 
 	function showAltimeter(data) {
 		var altimeter = data["Altimeter"];
+		//get altimeter units from the units object inside of data
 		var altimeterUnits = data["Units"]["Altimeter"];
 		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
 
@@ -154,7 +160,7 @@ $(document).ready(function() {
 	//hitting enter on input field triggers submit button click
 	document.getElementById('airport-form-input').onkeydown = function(e) {
 		if (e.keyCode == 13) {
-			submitButton.trigger("click");
+			$submitButton.trigger("click");
 		}
 	};
 
@@ -175,6 +181,7 @@ $(document).ready(function() {
 		showWindSpeed(data);
 		showWindGust(data);
 		showWindVariableDirection(data);
+		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
 		$(".airport-heading-row").css("visibility", "visible");
 
@@ -185,7 +192,7 @@ $(document).ready(function() {
 		
 	}
 
-	submitButton.on("click", function() {
+	$submitButton.on("click", function() {
 		event.preventDefault()
 		getAirportCode();
 		displayAirportCode();
