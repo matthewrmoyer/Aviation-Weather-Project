@@ -11,13 +11,11 @@ $(document).ready(function() {
 	var airportCode;
 
 
-
 	//set airport code variable to user input 
 	function getAirportCode() {
 		airportCode = $airportFormInput.val().toUpperCase();
 		console.log(airportCode);
 	}
-
 
 	//if ajax request comes with a station lookup error, this function will run
 	function checkError(data) {
@@ -25,7 +23,6 @@ $(document).ready(function() {
 		$errorHeading.empty();
 		if (data["Error"]) {
 			console.log("NOT AN AIRPORT");
-			//set error heading text to "airport not found"
 			$errorHeading.text("Airport Not Found");
 			//won't show previous airport search info  if there is an error on the current search
 			$(".weather-info").addClass("display-none");
@@ -33,41 +30,31 @@ $(document).ready(function() {
 			//if there isnt an error get rid of the display none class if it was previously added
 			$(".weather-info").removeClass("display-none");
 		}
-
 	}
-
 
 	function displayAirportCode() {
 		$airportCodeSpace.text(airportCode);
 	}
-
-
 
 	function showTime(data) {
 		var time = data["Time"];
 		$(".time-row").text("Zulu Date and Time: " + time);
 	}
 
-
 	function showStation(data) {
 		var station = data["Station"];
 		$(".station-row").text("Station: " + station);
-
 	}
 
 	//show vfr / ifr etc
 	function showFlightRules(data) {
 		var flightRules = data["Flight-Rules"];
 		$(".flight-rules-row").text("Flight Rules: " + flightRules);
-
 	}
-
 
 	function showAltimeter(data) {
 		var altimeter = data["Altimeter"];
 		var altimeterUnits = data["Units"]["Altimeter"];
-
-
 		//if the altimeter unit is "inHg", then there needs to be a decimal place after 2 digits
 		//if the alitmeter unit is not "inHg", it does not need a decimal 
 		if (altimeterUnits == "inHg") {
@@ -78,12 +65,9 @@ $(document).ready(function() {
 			//join the array back together
 			altimeter = altimeter.join("");
 		}
-
 		//get altimeter units from the units object inside of data
 		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
-
 	}
-
 
 	function showCloudList(data) {
 		//clear cloud list from last entry
@@ -94,8 +78,6 @@ $(document).ready(function() {
 			//cloudInfo is an array with a key value pairs setup
 			//i.e.: ["FEW", "100"]			
 			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "</div>");
-
-
 		})
 	}
 
@@ -111,17 +93,14 @@ $(document).ready(function() {
 	//return the ceiling
 	function createCeiling(data) {
 		var cloudList = data["Cloud-List"];
-
 		for (i = 0; i < cloudList.length; i++) {
 			var cloudLayer = cloudList[i][0];
 			var ceilingAltitude = cloudList[i][1];
-
 			console.log(cloudList[i]);
 			if (cloudLayer == "BKN" || cloudLayer == "OVC") {
 				//set variable to first character of ceiling alititude
 				var firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
 				var secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
-				console.log("SCAC: " + secondCeilingAltitudeCharacter);
 				//check if the first character is equal to 0
 				//if yes, then get rid of it using substring 
 				if (firstCeilingAltitudeCharacter == "0") {
@@ -209,6 +188,7 @@ $(document).ready(function() {
 			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection + "</div>");
 		}
 	}
+
 	//hitting enter on input field triggers submit button click
 	document.getElementById('airport-form-input').onkeydown = function(e) {
 		if (e.keyCode == 13) {
@@ -249,12 +229,10 @@ $(document).ready(function() {
 		event.preventDefault()
 		getAirportCode();
 		displayAirportCode();
-
-
-
 		$.get("https://avwx.rest/api/metar/" + airportCode)
 			.then(successFunction)
-
+			//TODO FIX THIS SHIT 
+			//.catch(rejectFunction)
 	})
 
 
