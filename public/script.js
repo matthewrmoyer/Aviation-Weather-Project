@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+	//TODO add code for incase of other units i.e: china, russia dont use same units
+	//try zbaa (beijing intl)
 
 	//global variables
 	var $submitButton = $("#airport-form-submit");
@@ -69,16 +71,21 @@ $(document).ready(function() {
 
 	function showAltimeter(data) {
 		var altimeter = data["Altimeter"];
-		//put decimal after two digits of altimeter
-		//change to string and split it into an array with nothing in between each element
-		altimeter = altimeter.toString().split("");
-		//inject a "." at index 2 and delete 0 elements
-		altimeter.splice(2, 0, ".");
-		//join the array back together
-		altimeter = altimeter.join("");
+		var altimeterUnits = data["Units"]["Altimeter"];
+
+
+		//if the altimeter unit is "inHg", then there needs to be a decimal place after 2 digits
+		//if the alitmeter unit is not "inHg", it does not need a decimal 
+		if (altimeterUnits == "inHg") {
+			//change to string and split it into an array with nothing in between each element
+			altimeter = altimeter.toString().split("");
+			//inject a "." at index 2 and delete 0 elements
+			altimeter.splice(2, 0, ".");
+			//join the array back together
+			altimeter = altimeter.join("");
+		}
 
 		//get altimeter units from the units object inside of data
-		var altimeterUnits = data["Units"]["Altimeter"];
 		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
 
 	}
@@ -111,17 +118,35 @@ $(document).ready(function() {
 	//the codes for these are BKN and OVC respectively 
 	//Step 1: Get cloud list from data
 	//Step 2: Iterate over cloudlist to find first "BKN" or "OVC"
+	//Step 3: Get rid of first character in the ceiling alititude if it is a 0
 	//Step 3: Set variables to the BKN/OVC and the next element
 	//Step 4: Write the variables to the ceiling-row
 
 	//return the ceiling
 	function createCeiling(data) {
 		var cloudList = data["Cloud-List"];
+
 		for (i = 0; i < cloudList.length; i++) {
+			var cloudLayer = cloudList[i][0];
+			var ceilingAltitude = cloudList[i][1];
+
 			console.log(cloudList[i]);
-			if (cloudList[i][0] == "BKN" || cloudList[i][0] == "OVC") {
-				var ceiling = cloudList[i][0] + " " + cloudList[i][1];
+			if (cloudLayer == "BKN" || cloudLayer == "OVC") {
+				//set variable to first character of ceiling alititude
+				var firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
+				//check if the first character is equal to 0
+				//if yes, then get rid of it using substring 
+				if (firstCeilingAltitudeCharacter == "0") {
+					ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
+				}
+
+				//set ceiling
+				var ceiling = cloudLayer + " " + ceilingAltitude;
+
+
 				return ceiling;
+
+				//break if true because only the first BKN/OVC is needed
 				break;
 			}
 		}
@@ -130,6 +155,9 @@ $(document).ready(function() {
 	//add ceiling to page
 	function showCeiling(data) {
 		var ceiling = createCeiling(data);
+		//TODO get rid of first character in ceiling if it is a 0
+		console.log("ceiling: " + ceiling);
+
 		if (ceiling) {
 			$(".ceiling-row").text("Ceiling: " + ceiling + "00" + " ft");
 		} else {
@@ -140,6 +168,17 @@ $(document).ready(function() {
 
 	function showTemperature(data) {
 		var temperature = data["Temperature"];
+		temperature = temperature.toString().split("");
+		//handle negative temperatures
+		//minus 10 degrees comes back as M10
+		//this is changing M10 to -10
+		if (temperature[0] == "M") {
+			temperature[0] = "-"
+		}
+		temperature = temperature.join("");
+
+
+
 		var temperatureUnit = data["Units"]["Temperature"];
 		$(".temperature-row").text("Temperature: " + temperature + " " + temperatureUnit);
 
@@ -150,6 +189,7 @@ $(document).ready(function() {
 		var temperatureUnit = data["Units"]["Temperature"];
 
 		var dewpoint = dewpoint.toString().split("");
+		//handle negative dewpoints
 		//minus 10 degrees comes back as M10
 		//this is changing M10 to -10
 		if (dewpoint[0] == "M") {
@@ -221,7 +261,6 @@ $(document).ready(function() {
 		showWindSpeed(data);
 		showWindGust(data);
 		showWindVariableDirection(data);
-		createCeiling(data);
 		showCeiling(data);
 		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
@@ -231,7 +270,7 @@ $(document).ready(function() {
 
 	//do if ajax request fails
 	function rejectFunction() {
-
+		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD")
 	}
 
 	$submitButton.on("click", function() {
