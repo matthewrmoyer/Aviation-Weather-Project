@@ -27,7 +27,6 @@ $(document).ready(function() {
 			console.log("NOT AN AIRPORT");
 			//set error heading text to "airport not found"
 			$errorHeading.text("Airport Not Found");
-			//hide of the stuff in weather info article
 			//won't show previous airport search info  if there is an error on the current search
 			$(".weather-info").addClass("display-none");
 		} else {
@@ -45,11 +44,8 @@ $(document).ready(function() {
 
 
 	function showTime(data) {
-		//set time = data's time's value 
 		var time = data["Time"];
-		//write the time to the page
 		$(".time-row").text("Zulu Date and Time: " + time);
-
 	}
 
 
@@ -95,16 +91,8 @@ $(document).ready(function() {
 		//cloudList is an array of cloud arrays
 		var cloudList = data["Cloud-List"];
 		cloudList.forEach(function(cloudInfo) {
-
-			console.log("Cloud List: " + cloudList);
-			//log each array separately 
 			//cloudInfo is an array with a key value pairs setup
-			//i.e.: ["FEW", "100"]
-			console.log("Clound Info: " + cloudInfo);
-			//log each nested array's elements
-			cloudInfo.forEach(function(cloudInfoNested) {
-				console.log(cloudInfoNested)
-			})
+			//i.e.: ["FEW", "100"]			
 			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "</div>");
 
 
@@ -116,8 +104,8 @@ $(document).ready(function() {
 	//the codes for these are BKN and OVC respectively 
 	//Step 1: Get cloud list from data
 	//Step 2: Iterate over cloudlist to find first "BKN" or "OVC"
-	//Step 3: Get rid of first character in the ceiling alititude if it is a 0
-	//Step 3: Set variables to the BKN/OVC and the next element
+	//Step 3: Get rid of first character in the ceiling alititude if it is a 0 (then do the same for second character)
+	//Step 3: Set cloudLayer to the BKN/OVC and the ceilingAltitude to the next element
 	//Step 4: Write the variables to the ceiling-row
 
 	//return the ceiling
@@ -138,24 +126,16 @@ $(document).ready(function() {
 				//if yes, then get rid of it using substring 
 				if (firstCeilingAltitudeCharacter == "0") {
 					ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
-					//if first character is 0, check if second character is 0
-					//if yes, then get rid of it using substring
-					//stays at posiition 1 because got rid of og position one in above if statement?
+						//if first character is 0, check if second character is 0
+						//if yes, then get rid of it using substring
+						//stays at posiition 1 because got rid of og position one in above if statement?
 					if (secondCeilingAltitudeCharacter == "0") {
-					ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
-
+						ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
+					}
 				}
-
-				}
-
 				//set ceiling
 				var ceiling = cloudLayer + " " + ceilingAltitude;
-
-
 				return ceiling;
-
-				//break if true because only the first BKN/OVC is needed
-				break;
 			}
 		}
 	}
@@ -163,14 +143,10 @@ $(document).ready(function() {
 	//add ceiling to page
 	function showCeiling(data) {
 		var ceiling = createCeiling(data);
-		//TODO get rid of first character in ceiling if it is a 0
-		console.log("ceiling: " + ceiling);
-
 		if (ceiling) {
 			$(".ceiling-row").text("Ceiling: " + ceiling + "00" + " ft");
 		} else {
 			$(".ceiling-row").text("No Reported Ceiling");
-
 		}
 	}
 
@@ -184,18 +160,13 @@ $(document).ready(function() {
 			temperature[0] = "-"
 		}
 		temperature = temperature.join("");
-
-
-
 		var temperatureUnit = data["Units"]["Temperature"];
 		$(".temperature-row").text("Temperature: " + temperature + " " + temperatureUnit);
-
 	}
 
 	function showDewpoint(data) {
 		var dewpoint = data["Dewpoint"];
 		var temperatureUnit = data["Units"]["Temperature"];
-
 		var dewpoint = dewpoint.toString().split("");
 		//handle negative dewpoints
 		//minus 10 degrees comes back as M10
@@ -205,14 +176,12 @@ $(document).ready(function() {
 		}
 		dewpoint = dewpoint.join("");
 		$(".dewpoint-row").text("Dewpoint: " + dewpoint + " " + temperatureUnit);
-
 	}
 
 	function showVisibility(data) {
 		var visibility = data["Visibility"];
 		var visibilityUnit = data["Units"]["Visibility"];
 		$(".visibility-row").text("Visibility: " + visibility + " " + visibilityUnit);
-
 	}
 
 	function showWindDirection(data) {
@@ -224,13 +193,11 @@ $(document).ready(function() {
 		var windSpeed = data["Wind-Speed"];
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
 		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + "" + windSpeedUnit + "</div>");
-
 	}
 
 	function showWindGust(data) {
 		var windGust = data["Wind-Gust"];
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
-
 		if (windGust) {
 			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Gust: " + windGust + " " + windSpeedUnit + "</div>");
 		}
@@ -238,12 +205,9 @@ $(document).ready(function() {
 
 	function showWindVariableDirection(data) {
 		var windVariableDirection = data["Wind-Variable-Dir"];
-
-
 		if (windVariableDirection.length > 0) {
 			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection + "</div>");
 		}
-
 	}
 	//hitting enter on input field triggers submit button click
 	document.getElementById('airport-form-input').onkeydown = function(e) {
