@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-	//TODO add code for incase of other units i.e: china, russia dont use same units
-	//try zbaa (beijing intl)
+
 
 	//global variables
 	var $submitButton = $("#airport-form-submit");
@@ -22,13 +21,12 @@ $(document).ready(function() {
 
 	//if ajax request comes with a station lookup error, this function will run
 	function checkError(data) {
-		var errorHeading = document.getElementById("error-heading");
 		//empty the error heading so that it doesnt stack text if user enters mulitple incorrect airport codes
 		$errorHeading.empty();
 		if (data["Error"]) {
 			console.log("NOT AN AIRPORT");
 			//set error heading text to "airport not found"
-			errorHeading.innerHTML = "Airport Not Found";
+			$errorHeading.text("Airport Not Found");
 			//hide of the stuff in weather info article
 			//won't show previous airport search info  if there is an error on the current search
 			$(".weather-info").addClass("display-none");
@@ -134,10 +132,20 @@ $(document).ready(function() {
 			if (cloudLayer == "BKN" || cloudLayer == "OVC") {
 				//set variable to first character of ceiling alititude
 				var firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
+				var secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
+				console.log("SCAC: " + secondCeilingAltitudeCharacter);
 				//check if the first character is equal to 0
 				//if yes, then get rid of it using substring 
 				if (firstCeilingAltitudeCharacter == "0") {
 					ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
+					//if first character is 0, check if second character is 0
+					//if yes, then get rid of it using substring
+					//stays at posiition 1 because got rid of og position one in above if statement?
+					if (secondCeilingAltitudeCharacter == "0") {
+					ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
+
+				}
+
 				}
 
 				//set ceiling
