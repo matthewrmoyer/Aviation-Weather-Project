@@ -9,6 +9,7 @@ $(document).ready(function() {
 	var $airportFormInput = $("#airport-form-input");
 	var $errorHeading = $("#error-heading");
 	var airportCode;
+	var airportIATA;
 
 
 	//set airport code variable to user input 
@@ -16,6 +17,13 @@ $(document).ready(function() {
 		airportCode = $airportFormInput.val().toUpperCase();
 		console.log(airportCode);
 	}
+
+	function getAirportIATA(){
+		airportIATA = $airportFormInput.val().toUpperCase()
+		airportIATA = airportIATA.slice(1, airportIATA.length);
+		console.log("IATA: " + airportIATA);
+	}
+
 
 	//if ajax request comes with a station lookup error, this function will run
 	function checkError(data) {
@@ -189,6 +197,12 @@ $(document).ready(function() {
 		}
 	}
 
+	function showAirportName(data){
+		var airportName = data["name"]; 
+		$(".airport-name").text(airportName);
+	}
+	
+
 	//hitting enter on input field triggers submit button click
 	document.getElementById('airport-form-input').onkeydown = function(e) {
 		if (e.keyCode == 13) {
@@ -220,6 +234,11 @@ $(document).ready(function() {
 
 	}
 
+	function statusSuccessFunction(data){
+		console.log("staus data: ");
+		console.log(data);
+		showAirportName(data);
+	}
 	//do if ajax request fails
 	function rejectFunction() {
 		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD")
@@ -228,9 +247,12 @@ $(document).ready(function() {
 	$submitButton.on("click", function() {
 		event.preventDefault()
 		getAirportCode();
+		getAirportIATA();
 		displayAirportCode();
 		$.get("https://avwx.rest/api/metar/" + airportCode)
 			.then(successFunction)
+		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
+			.then(statusSuccessFunction)
 			//TODO FIX THIS SHIT 
 			//.catch(rejectFunction)
 	})
