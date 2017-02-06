@@ -108,7 +108,7 @@ section {
   margin-top: 50px; }
 
 #airport-form-input {
-  height: 5vh;
+  height: 10vh;
   font-size: 3vh; }
   #airport-form-input:valid {
     text-transform: uppercase; }
@@ -116,12 +116,16 @@ section {
     #airport-form-input {
       height: 10vmax; } }
 
+.airport-form-row {
+  height: 10vh; }
+  @media (max-width: 576px) {
+    .airport-form-row {
+      position: fixed;
+      bottom: 0; } }
+
 #airport-form-submit {
-  height: 5vh;
+  height: 10vh;
   font-size: 3vh; }
-  @media (max-width: 768px) {
-    #airport-form-submit {
-      height: 10vmax; } }
 
 .airport-heading-row {
   justify-content: center;

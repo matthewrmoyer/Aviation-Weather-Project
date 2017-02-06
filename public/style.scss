@@ -115,7 +115,7 @@ section{
 }
 
 #airport-form-input{
-  height: 5vh;
+  height: 10vh;
   font-size: 3vh;
    &:valid{
       text-transform: uppercase;
@@ -126,13 +126,16 @@ section{
   }
 }
 
-#airport-form-submit{
-  height: 5vh;
-    font-size: 3vh;
-
-    @media #{$medium-screen}{
-      height: 10vmax;
+.airport-form-row{
+  height: 10vh;
+    @media #{$small-screen}{
+    position: fixed;
+    bottom: 0;
   }
+}
+#airport-form-submit{
+  height: 10vh;
+  font-size: 3vh;
 }
 
 .airport-heading-row{

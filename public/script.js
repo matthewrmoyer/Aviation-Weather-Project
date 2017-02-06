@@ -15,14 +15,13 @@ $(document).ready(function() {
 	//set airport code variable to user input 
 	function getAirportCode() {
 		airportCode = $airportFormInput.val().toUpperCase();
-		console.log(airportCode);
 	}
 
-	function getAirportIATA(){
+	function getAirportIATA() {
 		airportIATA = $airportFormInput.val().toUpperCase()
 		airportIATA = airportIATA.slice(1, airportIATA.length);
-		console.log("IATA: " + airportIATA);
 	}
+
 
 
 	//if ajax request comes with a station lookup error, this function will run
@@ -42,6 +41,12 @@ $(document).ready(function() {
 
 	function displayAirportCode() {
 		$airportCodeSpace.text(airportCode);
+	}
+
+	function showAirportLocation(data){
+		var city = data["city"];
+		var state = data["state"];
+		$(".city-and-state").text(city + ", " + state);
 	}
 
 	function showTime(data) {
@@ -84,8 +89,58 @@ $(document).ready(function() {
 		var cloudList = data["Cloud-List"];
 		cloudList.forEach(function(cloudInfo) {
 			//cloudInfo is an array with a key value pairs setup
-			//i.e.: ["FEW", "100"]			
-			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "</div>");
+			//i.e.: ["FEW", "100"]	
+
+			switch (cloudInfo[0]) {
+				case "FEW":
+					cloudInfo[0] = "Few";
+					break;
+
+				case "SCT":
+					cloudInfo[0] = "Scattered";
+					break;
+
+				case "BKN":
+					cloudInfo[0] = "Broken";
+					break;
+
+				case "CB":
+					cloudInfo[0] = "Cumulonimbus";
+					break;
+
+				case "CLR":
+					cloudInfo[0] = "Clear below 12,000 AGL";
+					break;
+
+				case "OVC":
+					cloudInfo[0] = "Overcast";
+					break;
+
+				case "SKC":
+					cloudInfo[0] = "Sky Clear";
+					break;
+
+				case "TCU":
+					cloudInfo[0] = "Towering Cumulus";
+					break;
+
+				default:
+					cloudInfo[0] = cloudInfo[0];
+			}
+			var firstCloudAltitudeCharacter = cloudInfo[1].charAt(0);
+			var secondCloudAltitudeCharacter = cloudInfo[1].charAt(1);
+			if (firstCloudAltitudeCharacter == "0") {
+				cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length)
+					//if first character is 0, check if second character is 0
+					//if yes, then get rid of it using substring
+					//stays at posiition 1 because got rid of og position one in above if statement?
+				if (secondCloudAltitudeCharacter == "0") {
+					cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length)
+				}
+			}
+
+
+			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
 		})
 	}
 
@@ -173,7 +228,7 @@ $(document).ready(function() {
 
 	function showWindDirection(data) {
 		var windDirection = data["Wind-Direction"];
-		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Direction: " + windDirection + "</div>");
+		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Direction: " + windDirection + "&deg" + "</div>");
 	}
 
 	function showWindSpeed(data) {
@@ -197,11 +252,11 @@ $(document).ready(function() {
 		}
 	}
 
-	function showAirportName(data){
-		var airportName = data["name"]; 
+	function showAirportName(data) {
+		var airportName = data["name"];
 		$(".airport-name").text(airportName);
 	}
-	
+
 
 	//hitting enter on input field triggers submit button click
 	document.getElementById('airport-form-input').onkeydown = function(e) {
@@ -234,10 +289,11 @@ $(document).ready(function() {
 
 	}
 
-	function statusSuccessFunction(data){
+	function statusSuccessFunction(data) {
 		console.log("staus data: ");
 		console.log(data);
 		showAirportName(data);
+		showAirportLocation(data);
 	}
 	//do if ajax request fails
 	function rejectFunction() {
