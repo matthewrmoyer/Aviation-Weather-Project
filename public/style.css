@@ -7,73 +7,85 @@ https://css-tricks.com/box-sizing/*/
 .col-1 {
   width: 8.33333%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-2 {
   width: 16.66667%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-3 {
   width: 25%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-4 {
   width: 33.33333%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-5 {
   width: 41.66667%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-6 {
   width: 50%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-7 {
   width: 58.33333%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-8 {
   width: 66.66667%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-9 {
   width: 75%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-10 {
   width: 83.33333%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-11 {
   width: 91.66667%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .col-12 {
   width: 100%;
   text-align: center;
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
   margin-top: 5px; }
 
 .row {
@@ -105,23 +117,29 @@ body {
 
 section {
   visibility: hidden;
-  margin-top: 50px; }
+  margin: 0 auto;
+  width: 90vw;
+  margin-top: 50px;
+  box-shadow: 0 0 10px 0px black; }
+
+figure {
+  visibility: hidden; }
+
+.airport-form-row {
+  height: 10vh; }
+  @media (max-width: 576px) {
+    .airport-form-row {
+      position: absolute;
+      bottom: 0; } }
 
 #airport-form-input {
   height: 10vh;
   font-size: 3vh; }
   #airport-form-input:valid {
     text-transform: uppercase; }
-  @media (max-width: 768px) {
+  @media (max-width: 576px) {
     #airport-form-input {
       height: 10vmax; } }
-
-.airport-form-row {
-  height: 10vh; }
-  @media (max-width: 576px) {
-    .airport-form-row {
-      position: fixed;
-      bottom: 0; } }
 
 #airport-form-submit {
   height: 10vh;
@@ -143,8 +161,16 @@ section {
 .display-none {
   display: none; }
 
-#weather-radar-image {
+.weather-radar-row {
+  justify-content: flex-start; }
+
+#radar-image {
   width: 293px;
   height: 213px; }
+  #radar-image:hover {
+    cursor: pointer;
+    width: 90vw;
+    height: 65vw;
+    margin: 0 auto; }
 
 /*# sourceMappingURL=style.css.map */

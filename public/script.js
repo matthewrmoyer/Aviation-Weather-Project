@@ -129,8 +129,6 @@ $(document).ready(function() {
 
 				default:
 					cloudInfo[0] = cloudInfo[0];
-					//insert commas
-
 			}
 			var firstCloudAltitudeCharacter = cloudInfo[1].charAt(0);
 			var secondCloudAltitudeCharacter = cloudInfo[1].charAt(1);
@@ -144,9 +142,6 @@ $(document).ready(function() {
 				}
 
 			}
-
-
-
 			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
 		})
 	}
@@ -308,8 +303,8 @@ $(document).ready(function() {
 				break;
 				
 
-				case "Conneticut":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/hartford-conneticut-region-current-radar-animation.gif";
+				case "Connecticut":
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/hartford-connecticut-region-current-radar-animation.gif";
 				break;
 				
 
@@ -324,7 +319,7 @@ $(document).ready(function() {
 				
 
 				case "Georgia":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/colombus-georgia-region-current-radar-animation.gif";
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/columbus-georgia-region-current-radar-animation.gif";
 				break;
 				
 
@@ -344,12 +339,11 @@ $(document).ready(function() {
 				
 
 				case "Indiana":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/des-moines-indiana-region-current-radar-animation.gif";
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/des-moines-iowa-region-current-radar.gif";
 				break;
-				
 
 				case "Iowa":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/anchorage-alaska-region-current-radar-animation.gif";
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/des-moines-iowa-region-current-radar.gif";
 				break;
 				
 
@@ -407,7 +401,7 @@ $(document).ready(function() {
 				break;
 
 				case "Nebraska":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/norht-platte-nebraska-region-current-radar-animation.gif";
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/north-platte-nebraska-region-current-radar-animation.gif";
 				break;
 				
 
@@ -460,7 +454,7 @@ $(document).ready(function() {
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/redmond-oregon-region-current-radar-animation.gif";
 				break;
 
-				case "Pennslyvania":
+				case "Pennsylvania":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/binghamton-new-york-region-current-radar-animation.gif";
 				break;
 				
@@ -476,7 +470,7 @@ $(document).ready(function() {
 				
 
 				case "South Dakota":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bismacrk-north-dakota-region-current-radar-animation.gif";
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bismarck-north-dakota-region-current-radar-animation.gif";
 				break;
 				
 
@@ -486,7 +480,7 @@ $(document).ready(function() {
 				
 
 				case "Texas":
-				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/san-antonia-texas-region-current-radar-animation.gif";
+				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/san-antonio-texas-region-current-radar-animation.gif";
 				break;
 				
 
@@ -510,7 +504,7 @@ $(document).ready(function() {
 				break;
 				
 
-				case "West Virgina":
+				case "West Virginia":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/staunton-virginia-region-current-radar-animation.gif";
 				break;
 
@@ -522,19 +516,11 @@ $(document).ready(function() {
 				case "Wyoming":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/riverton-wyoming-region-current-radar-animation.gif";
 				break;
-				
-
-				
-
-				
 
 		}
 		document.getElementById("radar-image").src=radarURL;
 
 	}
-
-
-
 
 	//hitting enter on input field triggers submit button click
 	document.getElementById('airport-form-input').onkeydown = function(e) {
@@ -573,6 +559,8 @@ $(document).ready(function() {
 		showAirportName(data);
 		showAirportLocation(data);
 		getRadarSource(data);
+		$("figure").css("visibility", "visible");
+
 	}
 	//do if ajax request fails
 	function rejectFunction() {
@@ -580,6 +568,8 @@ $(document).ready(function() {
 	}
 
 	$submitButton.on("click", function() {
+		$(".airport-name").empty();
+		$(".airport-city-and-state-row").empty();
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();

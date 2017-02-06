@@ -16,7 +16,9 @@ $extra-large-screen: "(max-width: 1200px)";
   text-align: center;
   //can change height
   //can change margin
-  border: 2px solid black;
+  border-left: 2px solid black;
+  border-right: 2px solid black;
+
   margin-top: 5px;
 }
 
@@ -84,6 +86,7 @@ body{
   font-size: calc(16px + 1vmax);
   background-color: grey; 
 }
+
 .small-screen-stack {
   @media #{$small-screen} {
     width: 100%;
@@ -111,9 +114,22 @@ body{
 
 section{
   visibility: hidden;
+  margin: 0 auto;
+  width: 90vw;
   margin-top: 50px;
+    box-shadow:  0 0 10px 0px black;
 }
 
+figure{
+  visibility: hidden;
+}
+.airport-form-row{
+  height: 10vh;
+  @media #{$small-screen}{
+    position: absolute;
+    bottom: 0;
+  }
+}
 #airport-form-input{
   height: 10vh;
   font-size: 3vh;
@@ -121,18 +137,12 @@ section{
       text-transform: uppercase;
     }
 
-     @media #{$medium-screen}{
+     @media #{$small-screen}{
       height: 10vmax;
   }
 }
 
-.airport-form-row{
-  height: 10vh;
-    @media #{$small-screen}{
-    position: fixed;
-    bottom: 0;
-  }
-}
+
 #airport-form-submit{
   height: 10vh;
   font-size: 3vh;
@@ -160,7 +170,17 @@ section{
   display: none;
 }
 
-#weather-radar-image{
+.weather-radar-row{
+  justify-content: flex-start;
+}
+
+#radar-image{
  width: 293px;
  height: 213px;
+ &:hover{
+  cursor: pointer;
+  width: 90vw;
+  height: 65vw;
+  margin: 0 auto;
+ }
 }
