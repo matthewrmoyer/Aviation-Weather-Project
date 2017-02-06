@@ -43,7 +43,7 @@ $(document).ready(function() {
 		$airportCodeSpace.text(airportCode);
 	}
 
-	function showAirportLocation(data){
+	function showAirportLocation(data) {
 		var city = data["city"];
 		var state = data["state"];
 		$(".city-and-state").text(city + ", " + state);
@@ -200,6 +200,12 @@ $(document).ready(function() {
 		//this is changing M10 to -10
 		if (temperature[0] == "M") {
 			temperature[0] = "-"
+			if (temperature[1] == "0") {
+				temperature[1] = [""];
+			}
+		}
+		if (temperature[0] == "0") {
+			temperature[0] = [""];
 		}
 		temperature = temperature.join("");
 		var temperatureUnit = data["Units"]["Temperature"];
@@ -215,6 +221,13 @@ $(document).ready(function() {
 		//this is changing M10 to -10
 		if (dewpoint[0] == "M") {
 			dewpoint[0] = "-"
+			console.log("dew[1]: " + dewpoint[1]);
+			if (dewpoint[1] == "0") {
+				dewpoint[1] = [""];
+			}
+		}
+		if (dewpoint[0] == "0") {
+			dewpoint[0] = [""];
 		}
 		dewpoint = dewpoint.join("");
 		$(".dewpoint-row").text("Dewpoint: " + dewpoint + " " + temperatureUnit);
