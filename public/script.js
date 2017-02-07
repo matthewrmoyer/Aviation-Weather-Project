@@ -87,6 +87,8 @@ $(document).ready(function() {
 		$(".cloud-list-row").empty();
 		//cloudList is an array of cloud arrays
 		var cloudList = data["Cloud-List"];
+		console.log("clould list length is: " + cloudList.length);
+		var cloudColNum = (12/cloudList.length);
 		cloudList.forEach(function(cloudInfo) {
 
 
@@ -142,7 +144,7 @@ $(document).ready(function() {
 				}
 
 			}
-			$(".cloud-list-row").append("<div class = 'col-3 cloud-item'>" + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
+			$(".cloud-list-row").append(`<div class = 'col-${cloudColNum} cloud-item'>`+ cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
 		})
 	}
 
@@ -162,7 +164,8 @@ $(document).ready(function() {
 			var cloudLayer = cloudList[i][0];
 			var ceilingAltitude = cloudList[i][1];
 			console.log(cloudList[i]);
-			if (cloudLayer == "BKN" || cloudLayer == "OVC") {
+			//changed bkn to broken, ovc to overcast because your changing it in other function
+			if (cloudLayer == "Broken" || cloudLayer == "Overcast") {
 				//set variable to first character of ceiling alititude
 				var firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
 				var secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
@@ -187,6 +190,7 @@ $(document).ready(function() {
 	//add ceiling to page
 	function showCeiling(data) {
 		var ceiling = createCeiling(data);
+		console.log("CIELINGGGGGGG: " + ceiling);
 		if (ceiling) {
 			$(".ceiling-row").text("Ceiling: " + ceiling + "00" + " ft");
 		} else {
@@ -272,6 +276,7 @@ $(document).ready(function() {
 		$(".airport-name").text(airportName);
 	}
 
+	//get state from faa api and use it to alter img url from wxunderground
 	function getRadarSource(data) {
 		var state = data["state"];
 		var radarURL;
@@ -550,7 +555,6 @@ $(document).ready(function() {
 		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
 		$(".airport-heading-row").css("visibility", "visible");
-
 	}
 
 	function statusSuccessFunction(data) {
@@ -581,6 +585,11 @@ $(document).ready(function() {
 			//TODO FIX THIS SHIT 
 			//.catch(rejectFunction)
 	})
+
+
+	$("#radar-image").on("click", function(){
+		$(this).toggleClass("double-sized-radar");
+	});
 
 
 

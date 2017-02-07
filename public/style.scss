@@ -117,14 +117,17 @@ section{
   margin: 0 auto;
   width: 90vw;
   margin-top: 50px;
+  padding-bottom: 10px;
     box-shadow:  0 0 10px 0px black;
 }
 
 figure{
   visibility: hidden;
+  margin-top: 50px;
 }
 .airport-form-row{
   height: 10vh;
+  margin-top: 20px;
   @media #{$small-screen}{
     position: absolute;
     bottom: 0;
@@ -177,10 +180,11 @@ figure{
 #radar-image{
  width: 293px;
  height: 213px;
- &:hover{
-  cursor: pointer;
-  width: 90vw;
-  height: 65vw;
+
+}
+
+.double-sized-radar{
+  width: 90vw !important;
+  height: 65vw !important;
   margin: 0 auto;
- }
 }
