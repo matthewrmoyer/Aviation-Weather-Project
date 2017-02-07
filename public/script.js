@@ -575,7 +575,6 @@ $(document).ready(function() {
 
 	$submitButton.on("click", function() {
 		$(".airport-name").empty();
-		$(".airport-city-and-state-row").empty();
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();
