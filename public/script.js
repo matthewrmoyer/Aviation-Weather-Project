@@ -564,7 +564,6 @@ $(document).ready(function() {
 	}
 
 	function statusSuccessFunction(data) {
-		$(".airport-form-row").prependTo("body");
 		console.log("staus data: ");
 		console.log(data);
 		showAirportName(data);
@@ -586,16 +585,19 @@ $(document).ready(function() {
 		$(".empty-state-overlay:not(.airport-form-row").fadeOut();
 		$(".airport-name").empty();
 		$(".city-and-state").empty();
+		$(".airport-form-row").prependTo("body");
+		
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();
 		displayAirportCode();
 		$.get("https://avwx.rest/api/metar/" + airportCode)
 			.then(successFunction)
+			//.catch(rejectFunction)
 		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
 			.then(statusSuccessFunction)
 			//TODO FIX THIS SHIT 
-			.catch(statusRejectFunction)
+			//.catch(statusRejectFunction)
 	})
 
 
