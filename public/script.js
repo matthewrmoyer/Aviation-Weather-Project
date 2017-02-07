@@ -8,6 +8,33 @@ $(document).ready(function() {
 	var $airportCodeSpace = $("#airport-code-space");
 	var $airportFormInput = $("#airport-form-input");
 	var $errorHeading = $("#error-heading");
+	var $weatherInfo = $(".weather-info")
+	var $rawMetar = $(".raw-metar");
+	var $location = $(".city-and-state");
+	var $timeRow = $(".time-row");
+	var $stationRow = $(".station-row");
+	var $flightRulesRow = $(".flight-rules-row");
+	var $altimeterRow =  $(".altimeter-row");
+	var $cloudListRow = $(".cloud-list-row");
+	var $cloudSection = $(".cloud-section");
+	var $ceilingRow = $(".ceiling-row");
+	var $temperatureRow = $(".temperature-row");
+	var $dewpointRow = $(".dewpoint-row");
+	var $visibilityRow = $(".visibility-row");
+	var $windRow = $(".wind-row");
+	var $weatherTypeRow = $(".weather-type-row");
+	var $airportHeadingRow = $(".airport-heading-row");
+	var $airportName = $(".airport-name");
+	var $emptyStateOverlay = $(".empty-state-overlay");
+	var $airportFormRow = $(".airport-form-row");
+
+
+
+
+
+
+
+
 	var airportCode;
 	var airportIATA;
 
@@ -32,10 +59,10 @@ $(document).ready(function() {
 			console.log("NOT AN AIRPORT");
 			$errorHeading.text("Airport Not Found");
 			//won't show previous airport search info  if there is an error on the current search
-			$(".weather-info").addClass("display-none");
+			$weatherInfo.addClass("display-none");
 		} else {
 			//if there isnt an error get rid of the display none class if it was previously added
-			$(".weather-info").removeClass("display-none");
+			$weatherInfo.removeClass("display-none");
 		}
 	}
 
@@ -45,29 +72,29 @@ $(document).ready(function() {
 
 	function showRawMetar(data) {
 		var rawMetar = data["Raw-Report"];
-		$(".raw-metar").text(rawMetar);
+		$rawMetar.text(rawMetar);
 	}
 
 	function showAirportLocation(data) {
 		var city = data["city"];
 		var state = data["state"];
-		$(".city-and-state").text(city + ", " + state);
+		$location.text(city + ", " + state);
 	}
-
+	//TODO Add local time
 	function showTime(data) {
 		var time = data["Time"];
-		$(".time-row").text("Zulu Date and Time: " + time);
+		$timeRow.text("Zulu Date and Time: " + time);
 	}
 
 	function showStation(data) {
 		var station = data["Station"];
-		$(".station-row").text("Station: " + station);
+		$stationRow.text("Station: " + station);
 	}
 
 	//show vfr / ifr etc
 	function showFlightRules(data) {
 		var flightRules = data["Flight-Rules"];
-		$(".flight-rules-row").text("Flight Rules: " + flightRules);
+		$flightRulesRow.text("Flight Rules: " + flightRules);
 	}
 
 	function showAltimeter(data) {
@@ -84,21 +111,21 @@ $(document).ready(function() {
 			altimeter = altimeter.join("");
 		}
 		//get altimeter units from the units object inside of data
-		$(".altimeter-row").text("Altimeter: " + altimeter + " " + altimeterUnits);
+		$altimeterRow.text("Altimeter: " + altimeter + " " + altimeterUnits);
 	}
 
 	function showCloudList(data) {
 		//clear cloud list from last entry
-		$(".cloud-list-row").empty();
+		$cloudListRow.empty();
 		//cloudList is an array of cloud arrays
 		var cloudList = data["Cloud-List"];
 		console.log("clould list length is: " + cloudList.length);
 		var cloudColNum = (12 / cloudList.length);
 
 		if (cloudList.length < 1) {
-			$(".cloud").addClass("display-none");
+			$cloudSection.addClass("display-none");
 		} else {
-			$(".cloud").removeClass("display-none");
+			$cloudSection.removeClass("display-none");
 		}
 		cloudList.forEach(function(cloudInfo) {
 			//cloudInfo is an array with a key value pairs setup
@@ -152,7 +179,7 @@ $(document).ready(function() {
 				}
 
 			}
-			$(".cloud-list-row").append(`<div class = 'col-${cloudColNum} cloud-item'>` + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
+			$cloudListRow.append(`<div class = 'col-${cloudColNum} cloud-item'>` + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
 		})
 	}
 
@@ -200,9 +227,9 @@ $(document).ready(function() {
 		var ceiling = createCeiling(data);
 		console.log("CIELINGGGGGGG: " + ceiling);
 		if (ceiling) {
-			$(".ceiling-row").text("Ceiling: " + ceiling + "00" + " ft");
+			$ceilingRow.text("Ceiling: " + ceiling + "00" + " ft");
 		} else {
-			$(".ceiling-row").text("No Reported Ceiling");
+			$ceilingRow.text("No Reported Ceiling");
 		}
 	}
 
@@ -223,7 +250,7 @@ $(document).ready(function() {
 		}
 		temperature = temperature.join("");
 		var temperatureUnit = data["Units"]["Temperature"];
-		$(".temperature-row").text("Temperature: " + temperature + " " + temperatureUnit);
+		$temperatureRow.text("Temperature: " + temperature + " " +  temperatureUnit);
 	}
 
 	function showDewpoint(data) {
@@ -244,49 +271,49 @@ $(document).ready(function() {
 			dewpoint[0] = [""];
 		}
 		dewpoint = dewpoint.join("");
-		$(".dewpoint-row").text("Dewpoint: " + dewpoint + " " + temperatureUnit);
+		$dewpointRow.text("Dewpoint: " + dewpoint + " " + temperatureUnit);
 	}
 
 	function showVisibility(data) {
 		var visibility = data["Visibility"];
 		var visibilityUnit = data["Units"]["Visibility"];
-		$(".visibility-row").text("Visibility: " + visibility + " " + visibilityUnit);
+		$visibilityRow.text("Visibility: " + visibility + " " + visibilityUnit);
 	}
 
 	function showWindDirection(data) {
 		var windDirection = data["Wind-Direction"];
-		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Direction: " + windDirection + "&deg" + "</div>");
+		$windRow.append("<div class = 'col-2 wind-item'>" + "Direction: " + windDirection + "&deg" + "</div>");
 	}
 
 	function showWindSpeed(data) {
 		var windSpeed = data["Wind-Speed"];
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
-		$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + "" + windSpeedUnit + "</div>");
+		$windRow.append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + "" + windSpeedUnit + "</div>");
 	}
 
 	function showWindGust(data) {
 		var windGust = data["Wind-Gust"];
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
 		if (windGust) {
-			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Gust: " + windGust + " " + windSpeedUnit + "</div>");
+			$windRow.append("<div class = 'col-2 wind-item'>" + "Gust: " + windGust + " " + windSpeedUnit + "</div>");
 		}
 	}
 
 	function showWindVariableDirection(data) {
 		var windVariableDirection = data["Wind-Variable-Dir"];
 		if (windVariableDirection.length > 0) {
-			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection[0] + "&deg" + " to " + windVariableDirection[1] + "&deg" + "</div>");
+			$windRow.append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection[0] + "&deg" + " to " + windVariableDirection[1] + "&deg" + "</div>");
 		}
 	}
 
 	function showAirportName(data) {
 		var airportName = data["name"];
-		$(".airport-name").text(airportName);
+		$airportName.text(airportName);
 	}
 
 	function showWeatherType(data) {
 		var weatherType = data["weather"]["weather"];
-		$(".weather-type-row").text("Weather Type: " + weatherType);
+		$weatherTypeRow.text("Weather Type: " + weatherType);
 	}
 
 	//get state from faa api and use it to alter img url from wxunderground
@@ -541,10 +568,10 @@ $(document).ready(function() {
 	}
 
 	//do if ajax request is successful
-	function successFunction(data) {
+	function avwxSuccessFunction(data) {
 		console.log(data);
 		checkError(data);
-		$(".wind-row").empty();
+		$windRow.empty();
 		showTime(data);
 		showStation(data);
 		showFlightRules(data);
@@ -561,7 +588,7 @@ $(document).ready(function() {
 		showRawMetar(data);
 		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
-		$(".airport-heading-row").css("visibility", "visible");
+		$airportHeadingRow.css("visibility", "visible");
 	}
 
 	function statusSuccessFunction(data) {
@@ -574,11 +601,12 @@ $(document).ready(function() {
 		$("figure").css("visibility", "visible");
 	}
 
+	//do if ajax fails
 	function statusRejectFunction() {
 		console.log("STATUS REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 	}
-	//do if ajax request fails
-	function rejectFunction() {
+
+	function avwxRejectFunction() {
 		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD")
 	}
 
@@ -590,30 +618,27 @@ $(document).ready(function() {
 	};
 
 	$submitButton.on("click", function() {
-		$(".empty-state-overlay:not(.airport-form-row").fadeOut();
-		$(".airport-name").empty();
-		$(".city-and-state").empty();
-		$(".airport-form-row").prependTo("body");
+		$emptyStateOverlay.fadeOut();
+		$airportName.empty();
+		$location.empty();
+		$airportFormRow.prependTo("body");
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();
 		displayAirportCode();
 		$.get("https://avwx.rest/api/metar/" + airportCode)
-			.done(successFunction)
-			.fail(rejectFunction)
+			.done(avwxSuccessFunction)
+			.fail(avwxRejectFunction)
 		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
 			.done(statusSuccessFunction)
 			.fail(statusRejectFunction)
 	})
 
 
-	$("#radar-image").on("click", function() {
-		$(this).toggleClass("double-sized-radar");
-	});
-
-	$(".fa-expand").on("click", function() {
+	$("#radar-image, .fa-expand").on("click", function() {
 		$("#radar-image").toggleClass("double-sized-radar");
 	});
+
 
 
 
