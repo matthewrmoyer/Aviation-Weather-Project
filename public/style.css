@@ -178,7 +178,10 @@ figure {
   margin: 0 auto; }
 
 body {
-  background-color: #E0E0E0; }
+  background-color: #E0E0E0;
+  line-height: 1.1;
+  user-select: none;
+  cursor: default; }
 
 .sky-container {
   background-color: rgba(118, 182, 254, 0.5);

@@ -272,8 +272,14 @@ $(document).ready(function() {
 	}
 
 	function showAirportName(data) {
+
 		var airportName = data["name"];
 		$(".airport-name").text(airportName);
+	}
+
+	function showWeatherType(data){
+		var weatherType = data["weather"]["weather"];
+		$(".weather-type-row").text("Weather Type: " + weatherType);
 	}
 
 	//get state from faa api and use it to alter img url from wxunderground
@@ -558,15 +564,18 @@ $(document).ready(function() {
 	}
 
 	function statusSuccessFunction(data) {
-		$(".empty-state-overlay:not(.airport-form-row").hide();
 		$(".airport-form-row").prependTo("body");
 		console.log("staus data: ");
 		console.log(data);
 		showAirportName(data);
 		showAirportLocation(data);
+		showWeatherType(data)
 		getRadarSource(data);
 		$("figure").css("visibility", "visible");
+	}
 
+	function statusRejectFunction(){
+		console.log("STATUS REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 	}
 	//do if ajax request fails
 	function rejectFunction() {
@@ -574,7 +583,9 @@ $(document).ready(function() {
 	}
 
 	$submitButton.on("click", function() {
+		$(".empty-state-overlay:not(.airport-form-row").fadeOut();
 		$(".airport-name").empty();
+		$(".city-and-state").empty();
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();
@@ -584,7 +595,7 @@ $(document).ready(function() {
 		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
 			.then(statusSuccessFunction)
 			//TODO FIX THIS SHIT 
-			//.catch(rejectFunction)
+			.catch(statusRejectFunction)
 	})
 
 
