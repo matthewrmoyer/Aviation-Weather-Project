@@ -591,6 +591,10 @@ $(document).ready(function() {
 		$(this).toggleClass("double-sized-radar");
 	});
 
+		$(".fa-expand").on("click", function(){
+		$("#radar-image").toggleClass("double-sized-radar");
+	});
+
 
 
 });
