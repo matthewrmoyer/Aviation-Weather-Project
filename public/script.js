@@ -621,12 +621,12 @@ $(document).ready(function() {
 		}
 	};
 
-	$submitButton.on("click", function() {
+	$submitButton.on("click", function(event) {
 		$emptyStateOverlay.fadeOut();
 		$airportName.empty();
 		$location.empty();
 		$airportFormRow.prependTo("body");
-		event.preventDefault()
+		event.preventDefault(event);
 		getAirportCode();
 		getAirportIATA();
 		displayAirportCode();
