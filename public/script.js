@@ -4,7 +4,6 @@ $(document).ready(function() {
 
 	//global variables
 	var $submitButton = $("#airport-form-submit");
-	var $airportInput = $("#airport-form-input");
 	var $airportCodeSpace = $("#airport-code-space");
 	var $airportFormInput = $("#airport-form-input");
 	var $errorHeading = $("#error-heading");
@@ -28,12 +27,7 @@ $(document).ready(function() {
 	var $emptyStateOverlay = $(".empty-state-overlay");
 	var $airportFormRow = $(".airport-form-row");
 
-
-
-
-
-
-
+	var airportFormInput = document.getElementById("airport-form-input");
 
 	var airportCode;
 	var airportIATA;
@@ -282,11 +276,21 @@ $(document).ready(function() {
 
 	function showWindDirection(data) {
 		var windDirection = data["Wind-Direction"];
+		windDirection = windDirection.toString().split("");
+		if (windDirection[0] == "0") {
+			windDirection[0] = [""];
+		}
+		windDirection = windDirection.join("");
 		$windRow.append("<div class = 'col-2 wind-item'>" + "Direction: " + windDirection + "&deg" + "</div>");
 	}
 
 	function showWindSpeed(data) {
 		var windSpeed = data["Wind-Speed"];
+		windSpeed = windSpeed.toString().split("");
+		if (windSpeed[0] == "0") {
+			windSpeed[0] = [""];
+		}
+		windSpeed = windSpeed.join("");
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
 		$windRow.append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + "" + windSpeedUnit + "</div>");
 	}
@@ -611,7 +615,7 @@ $(document).ready(function() {
 	}
 
 	//hitting enter on input field triggers submit button click
-	document.getElementById('airport-form-input').onkeydown = function(e) {
+	airportFormInput.onkeydown = function(e) {
 		if (e.keyCode == 13) {
 			$submitButton.trigger("click");
 		}

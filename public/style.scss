@@ -131,7 +131,7 @@ section{
   width: 90vw;
   margin-top: 50px;
   padding-bottom: 10px;
-    box-shadow:  0 0 10px 0px black;
+  box-shadow:  0 0 10px 0px black;
 }
 
 figure{
@@ -196,7 +196,7 @@ figure{
   }
 }
 
-.radar-image{
+#radar-image{
  width: 293px;
  height: 213px;
 cursor: pointer;
@@ -252,15 +252,15 @@ cursor: pointer;
   display: flex;
   justify-content: flex-start;
   opacity: .5;
-
 }
+
 .airplane-icon{
   color: $airplane-color;
   font-size: 7vmax !important;
   margin-left: 20vw;
   margin-right: 20vw;
   line-height: 0 !important;
-  }
+}
 
 .rain-container{
   display: flex;
