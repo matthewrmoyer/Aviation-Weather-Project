@@ -177,4 +177,91 @@ figure {
   height: 65vw !important;
   margin: 0 auto; }
 
+body {
+  background-color: #E0E0E0; }
+
+.sky-container {
+  background-color: rgba(118, 182, 254, 0.5);
+  width: 100vw;
+  padding-top: 10px; }
+
+.cloud-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+  color: grey;
+  font-size: 10vmax;
+  opacity: .5; }
+
+.cloud-layer-1 {
+  justify-content: space-between; }
+
+.sun-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+  color: #ffff66;
+  font-size: 10vmax;
+  opacity: .5; }
+  .sun-container .sun-icon {
+    color: #ffff66;
+    text-shadow: 0px 0px 20px #ffff66; }
+  .sun-container .thermometer-icon {
+    color: #990000;
+    font-size: 5vmax; }
+
+.airplane-container {
+  display: flex;
+  justify-content: flex-start;
+  opacity: .5; }
+
+.airplane-icon {
+  color: #3a3b3b;
+  font-size: 7vmax !important;
+  margin-left: 20vw;
+  margin-right: 20vw;
+  line-height: 0 !important; }
+
+.rain-container {
+  display: flex;
+  justify-content: space-between;
+  opacity: .5; }
+
+.rain-container-2 {
+  justify-content: space-around; }
+
+.rain-container-1 {
+  justify-content: space-around; }
+
+.snow-container {
+  display: flex;
+  justify-content: space-between; }
+
+.airport-form-row {
+  height: 10vh;
+  margin-top: 20px;
+  justify-content: center; }
+
+#airport-form-input {
+  height: 10vh;
+  font-size: 3vh; }
+  #airport-form-input:valid {
+    text-transform: uppercase; }
+  @media (max-width: 576px) {
+    #airport-form-input {
+      height: 10vmax; } }
+
+#airport-form-submit {
+  height: 10vh;
+  background-color: gray; }
+
+.empty-state-heading-row {
+  justify-content: center;
+  margin-top: 3vh; }
+
+.empty-state-p-row {
+  justify-content: center;
+  line-height: 1.5; }
+
 /*# sourceMappingURL=style.css.map */

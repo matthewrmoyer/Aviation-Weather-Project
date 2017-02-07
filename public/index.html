@@ -8,11 +8,89 @@
 		<script src ="script.js" defer></script>
 	</head>
 	<body>
-		<div class = "row airport-form-row">
-			<input class =  "col-7" type="text" placeholder="Enter ICAO Code" name="airport-input" id = "airport-form-input" autofocus>
-			<input class = "col-3" type="submit" name="airport-submit" id = "airport-form-submit">
+		
+		<div class = "empty-state-overlay">
+			<div class = "sky-container">
+				<div class = "sun-container">
+					<i class="fa fa-sun-o sun-icon" aria-hidden="true"></i>
+					<i class="fa fa-thermometer-half thermometer-icon" aria-hidden="true">65F</i>
+				</div>
+				<div class = "cloud-container">
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+				</div>
+				<div class = "snow-container">
+					<i class="fa fa-snowflake-o snow-icon" aria-hidden="true"></i>
+					<i class="fa fa-snowflake-o snow-icon" aria-hidden="true"></i>
+					<i class="fa fa-snowflake-o snow-icon" aria-hidden="true"></i>
+					<i class="fa fa-snowflake-o snow-icon" aria-hidden="true"></i>
+					<i class="fa fa-snowflake-o snow-icon" aria-hidden="true"></i>
+					
+				</div>
+				
+				<div class = "cloud-container">
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+				</div>
+				
+				<div class = "airplane-container">
+					<i class="fa fa-plane airplane-icon" aria-hidden="true"></i>
+					
+				</div>
+								<div class = "row airport-form-row">
+					<input class =  "col-7" type="text" placeholder="Enter ICAO Code" name="airport-input" id = "airport-form-input" autofocus>
+					<input class = "col-3" type="submit" name="airport-submit" id = "airport-form-submit">
+				</div>
+				<div class = "cloud-container clound-layer-1">
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+					<i class="fa fa-cloud cloud-icon" aria-hidden="true"></i>
+				</div>
+				
+				<div class = "rain-container rain-container-1">
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+				</div>
+				<div class = "rain-container rain-container-2">
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					
+				</div>
+				<div class = "rain-container rain-container-3">
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
+				</div>
+
+			</div>
+			<div class = "empty-state-text">
+				<div class ="row empty-state-heading-row">
+					<h1>Enter ICAO</h1>
+				</div>
+				<div class = "row empty-state-p-row">
+					<p class = "col-10">Enter your airport's ICAO code in the above search box and hit submit. You will see that airport's relevant flight information, including METARs, weather radar, precipitation, cloud layers, and winds.</p>
+				</div>
+			</div>
 		</div>
-		<br>
 		<div class = "row error-heading-row">
 			<h1 id = "error-heading"></h1>
 		</div>
@@ -21,7 +99,6 @@
 				<div class = "row airport-name-row">
 					<h2 class = "airport-name"></h2>
 				</div>
-
 				<div class = "row airport-city-and-state-row">
 					<p class = "city-and-state"></p>
 				</div>
@@ -56,18 +133,15 @@
 				</div>
 				<div class = "row wind-row"></div>
 			</section>
-
 			
-
 			<figure>
-			<figcaption>Current Radar</figcaption>
-			<p>Click to expand <i class="fa fa-expand" aria-hidden="true"></i>
-</p>
+				<figcaption>Current Radar</figcaption>
+				<p>Click to expand <i class="fa fa-expand" aria-hidden="true"></i>
+				</p>
 				<div class = "row weather-radar-row">
 					<img class = "col-6" id = "radar-image" style="user-select: none; src="https://icons.wxug.com/data/weather-maps/radar/united-states/denver-colorado-region-current-radar-animation.gif" width="457" height="333">
 				</div>
-
-				</figure>
+			</figure>
 		</article>
 	</body>
 </html>

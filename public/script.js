@@ -558,6 +558,8 @@ $(document).ready(function() {
 	}
 
 	function statusSuccessFunction(data) {
+		$(".empty-state-overlay:not(.airport-form-row").hide();
+		$(".airport-form-row").prependTo("body");
 		console.log("staus data: ");
 		console.log(data);
 		showAirportName(data);
