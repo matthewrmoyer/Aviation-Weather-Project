@@ -89,6 +89,12 @@ $(document).ready(function() {
 		var cloudList = data["Cloud-List"];
 		console.log("clould list length is: " + cloudList.length);
 		var cloudColNum = (12/cloudList.length);
+
+		if(cloudList.length<1){
+			$(".cloud").addClass("display-none");
+		} else{
+			$(".cloud").removeClass("display-none");
+		}
 		cloudList.forEach(function(cloudInfo) {
 
 
@@ -267,7 +273,8 @@ $(document).ready(function() {
 	function showWindVariableDirection(data) {
 		var windVariableDirection = data["Wind-Variable-Dir"];
 		if (windVariableDirection.length > 0) {
-			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection + "</div>");
+
+			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection[0] + "&deg" + " to " + windVariableDirection[1] + "&deg" + "</div>");
 		}
 	}
 
@@ -586,7 +593,7 @@ $(document).ready(function() {
 		$(".airport-name").empty();
 		$(".city-and-state").empty();
 		$(".airport-form-row").prependTo("body");
-		
+
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();
