@@ -43,7 +43,7 @@ $(document).ready(function() {
 		$airportCodeSpace.text(airportCode);
 	}
 
-	function showRawMetar(data){
+	function showRawMetar(data) {
 		var rawMetar = data["Raw-Report"];
 		$(".raw-metar").text(rawMetar);
 	}
@@ -93,17 +93,14 @@ $(document).ready(function() {
 		//cloudList is an array of cloud arrays
 		var cloudList = data["Cloud-List"];
 		console.log("clould list length is: " + cloudList.length);
-		var cloudColNum = (12/cloudList.length);
+		var cloudColNum = (12 / cloudList.length);
 
-		if(cloudList.length<1){
+		if (cloudList.length < 1) {
 			$(".cloud").addClass("display-none");
-		} else{
+		} else {
 			$(".cloud").removeClass("display-none");
 		}
 		cloudList.forEach(function(cloudInfo) {
-
-
-
 			//cloudInfo is an array with a key value pairs setup
 			//i.e.: ["FEW", "100"]	
 			//insert commas
@@ -155,7 +152,7 @@ $(document).ready(function() {
 				}
 
 			}
-			$(".cloud-list-row").append(`<div class = 'col-${cloudColNum} cloud-item'>`+ cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
+			$(".cloud-list-row").append(`<div class = 'col-${cloudColNum} cloud-item'>` + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
 		})
 	}
 
@@ -278,18 +275,16 @@ $(document).ready(function() {
 	function showWindVariableDirection(data) {
 		var windVariableDirection = data["Wind-Variable-Dir"];
 		if (windVariableDirection.length > 0) {
-
 			$(".wind-row").append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection[0] + "&deg" + " to " + windVariableDirection[1] + "&deg" + "</div>");
 		}
 	}
 
 	function showAirportName(data) {
-
 		var airportName = data["name"];
 		$(".airport-name").text(airportName);
 	}
 
-	function showWeatherType(data){
+	function showWeatherType(data) {
 		var weatherType = data["weather"]["weather"];
 		$(".weather-type-row").text("Weather Type: " + weatherType);
 	}
@@ -300,257 +295,250 @@ $(document).ready(function() {
 		var radarURL;
 		switch (state) {
 
-				case "Alabama":
+			case "Alabama":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/columbus-georgia-region-current-radar-animation.gif";
 				break;
 
-				case "Alaska":
+			case "Alaska":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/anchorage-alaska-region-current-radar-animation.gif";
 				break;
 
-				case "Arizona":
+			case "Arizona":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/prescott-arizona-region-current-radar-animation.gif";
 				break;
 
-				case "Arkansas":
+			case "Arkansas":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/little-rock-arkansas-region-current-radar-animation.gif";
 				break;
-				
-				case "California":
+
+			case "California":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bakersfield-california-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Colorado":
+
+			case "Colorado":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/denver-colorado-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Connecticut":
+
+			case "Connecticut":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/hartford-connecticut-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Delaware":
+
+			case "Delaware":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/binghamton-new-york-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Florida":
+
+			case "Florida":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/saint-petersburg-florida-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Georgia":
+
+			case "Georgia":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/columbus-georgia-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Hawaii":
+
+			case "Hawaii":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/molokai-hawaii-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Idaho":
+
+			case "Idaho":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/mccall-idaho-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Illinois":
+
+			case "Illinois":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/springfield-illinois-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Indiana":
+
+			case "Indiana":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/des-moines-iowa-region-current-radar.gif";
 				break;
 
-				case "Iowa":
+			case "Iowa":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/des-moines-iowa-region-current-radar.gif";
 				break;
-				
 
-				case "Kansas":
+
+			case "Kansas":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/salina-kansas-region-current-radar-animation.gif";
 				break;
 
-				case "Kentucky":
+			case "Kentucky":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bowling-green-kentucky-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Louisiana":
+
+			case "Louisiana":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/new-orleans-louisiana-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Maine":
+
+			case "Maine":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/berlin-new-hampshire-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Maryland":
+
+			case "Maryland":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/staunton-virginia-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Massachusetts":
+
+			case "Massachusetts":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/berlin-new-hampshire-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Michigan":
+
+			case "Michigan":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/cadillac-michigan-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Minnesota":
+
+			case "Minnesota":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/saint-cloud-minnesota-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Mississippi":
+
+			case "Mississippi":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/vicksburg-mississippi-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Missouri":
+
+			case "Missouri":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/jefferson-city-missouri-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Montana":
+
+			case "Montana":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/lewistown-montana-region-current-radar-animation.gif";
 				break;
 
-				case "Nebraska":
+			case "Nebraska":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/north-platte-nebraska-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Nevada":
+
+			case "Nevada":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/reno-nevada-region-current-radar-animation.gif";
 				break;
-				
 
-				case "New Hampshire":
+
+			case "New Hampshire":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/berlin-new-hampshire-region-current-radar-animation.gif";
 				break;
-				
 
-				case "New Jersey":
+
+			case "New Jersey":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/binghamton-new-york-region-current-radar-animation.gif";
 				break;
-				
 
-				case "New Mexico":
+
+			case "New Mexico":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/roswell-new-mexico-region-current-radar-animation.gif";
 				break;
-				
 
-				case "New York":
+
+			case "New York":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/binghamton-new-york-region-current-radar-animation.gif";
 				break;
-				
 
-				case "North Carolina":
+
+			case "North Carolina":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/charlotte-north-carolina-region-current-radar-animation.gif";
 				break;
-				
 
-				case "North Dakota":
+
+			case "North Dakota":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bismarck-north-dakota-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Ohio":
+
+			case "Ohio":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/dayton-ohio-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Oklahoma":
+
+			case "Oklahoma":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/lawton-oklahoma-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Oregon":
+
+			case "Oregon":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/redmond-oregon-region-current-radar-animation.gif";
 				break;
 
-				case "Pennsylvania":
+			case "Pennsylvania":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/binghamton-new-york-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Rhode Island":
+
+			case "Rhode Island":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/binghamton-new-york-region-current-radar-animation.gif";
 				break;
-				
 
-				case "South Carolina":
+
+			case "South Carolina":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/charlotte-north-carolina-region-current-radar-animation.gif";
 				break;
-				
 
-				case "South Dakota":
+
+			case "South Dakota":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bismarck-north-dakota-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Tennessee":
+
+			case "Tennessee":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/bowling-green-kentucky-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Texas":
+
+			case "Texas":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/san-antonio-texas-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Utah":
+
+			case "Utah":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/provo-utah-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Vermont":
+
+			case "Vermont":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/berlin-new-hampshire-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Virginia":
+
+			case "Virginia":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/staunton-virginia-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Washington":
+
+			case "Washington":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/tacoma-washington-region-current-radar-animation.gif";
 				break;
-				
 
-				case "West Virginia":
+
+			case "West Virginia":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/staunton-virginia-region-current-radar-animation.gif";
 				break;
 
-				case "Wisconsin":
+			case "Wisconsin":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/cadillac-michigan-region-current-radar-animation.gif";
 				break;
-				
 
-				case "Wyoming":
+
+			case "Wyoming":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/riverton-wyoming-region-current-radar-animation.gif";
 				break;
 
 		}
-		document.getElementById("radar-image").src=radarURL;
+		document.getElementById("radar-image").src = radarURL;
 
 	}
-
-	//hitting enter on input field triggers submit button click
-	document.getElementById('airport-form-input').onkeydown = function(e) {
-		if (e.keyCode == 13) {
-			$submitButton.trigger("click");
-		}
-	};
 
 	//do if ajax request is successful
 	function successFunction(data) {
@@ -586,7 +574,7 @@ $(document).ready(function() {
 		$("figure").css("visibility", "visible");
 	}
 
-	function statusRejectFunction(){
+	function statusRejectFunction() {
 		console.log("STATUS REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 	}
 	//do if ajax request fails
@@ -594,12 +582,18 @@ $(document).ready(function() {
 		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD")
 	}
 
+	//hitting enter on input field triggers submit button click
+	document.getElementById('airport-form-input').onkeydown = function(e) {
+		if (e.keyCode == 13) {
+			$submitButton.trigger("click");
+		}
+	};
+
 	$submitButton.on("click", function() {
 		$(".empty-state-overlay:not(.airport-form-row").fadeOut();
 		$(".airport-name").empty();
 		$(".city-and-state").empty();
 		$(".airport-form-row").prependTo("body");
-
 		event.preventDefault()
 		getAirportCode();
 		getAirportIATA();
@@ -613,11 +607,11 @@ $(document).ready(function() {
 	})
 
 
-	$("#radar-image").on("click", function(){
+	$("#radar-image").on("click", function() {
 		$(this).toggleClass("double-sized-radar");
 	});
 
-		$(".fa-expand").on("click", function(){
+	$(".fa-expand").on("click", function() {
 		$("#radar-image").toggleClass("double-sized-radar");
 	});
 
