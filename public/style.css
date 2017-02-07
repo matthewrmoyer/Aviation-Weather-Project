@@ -97,7 +97,8 @@ https://css-tricks.com/box-sizing/*/
 
 body {
   font-size: calc(16px + 1vmax);
-  background-color: grey; }
+  background-color: grey;
+  font-family: 'Roboto', sans-serif; }
 
 @media (max-width: 576px) {
   .small-screen-stack {
@@ -164,8 +165,12 @@ figure {
 .display-none {
   display: none; }
 
+.radar-section {
+  border: none;
+  box-shadow: none; }
+
 .weather-radar-row {
-  justify-content: flex-start; }
+  justify-content: space-between; }
 
 #radar-image {
   width: 293px;
@@ -245,15 +250,15 @@ body {
   height: 10vh;
   margin-top: 20px;
   justify-content: center; }
+  @media (max-width: 576px) {
+    .airport-form-row {
+      height: 10vmax; } }
 
 #airport-form-input {
   height: 10vh;
   font-size: 3vh; }
   #airport-form-input:valid {
     text-transform: uppercase; }
-  @media (max-width: 576px) {
-    #airport-form-input {
-      height: 10vmax; } }
 
 #airport-form-submit {
   height: 10vh;

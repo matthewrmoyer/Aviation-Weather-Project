@@ -3,6 +3,7 @@
 	<head>
 		<title>Aviation Wx</title>
 		<script src="https://use.fontawesome.com/57a2949668.js" async></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src ="jquery.js" defer></script>
 		<script src ="script.js" defer></script>
@@ -134,15 +135,20 @@
 				</div>
 				<div class = "row wind-row"></div>
 			</section>
-			
+			<section class = "radar-section">
 			<figure>
 				<figcaption>Current Radar</figcaption>
 				<p>Click to expand <i class="fa fa-expand" aria-hidden="true"></i>
 				</p>
 				<div class = "row weather-radar-row">
-					<img class = "col-6" id = "radar-image" style="user-select: none; src="https://icons.wxug.com/data/weather-maps/radar/united-states/denver-colorado-region-current-radar-animation.gif" width="457" height="333">
+					<img class = "col-6" id = "radar-image" style="user-select: none; src="https://icons.wxug.com/data/weather-maps/radar/united-states/denver-colorado-region-current-radar-animation.gif" width="457" height="333"><div class = "col-6">
+						<h3>Raw Reports</h3>
+						<p class = "raw-metar"></p>
+					</div>
 				</div>
+				
 			</figure>
+			</section>
 		</article>
 	</body>
 </html>

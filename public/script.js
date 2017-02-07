@@ -43,6 +43,11 @@ $(document).ready(function() {
 		$airportCodeSpace.text(airportCode);
 	}
 
+	function showRawMetar(data){
+		var rawMetar = data["Raw-Report"];
+		$(".raw-metar").text(rawMetar);
+	}
+
 	function showAirportLocation(data) {
 		var city = data["city"];
 		var state = data["state"];
@@ -565,6 +570,7 @@ $(document).ready(function() {
 		showWindGust(data);
 		showWindVariableDirection(data);
 		showCeiling(data);
+		showRawMetar(data);
 		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
 		$(".airport-heading-row").css("visibility", "visible");
@@ -599,12 +605,11 @@ $(document).ready(function() {
 		getAirportIATA();
 		displayAirportCode();
 		$.get("https://avwx.rest/api/metar/" + airportCode)
-			.then(successFunction)
-			//.catch(rejectFunction)
+			.done(successFunction)
+			.fail(rejectFunction)
 		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
-			.then(statusSuccessFunction)
-			//TODO FIX THIS SHIT 
-			//.catch(statusRejectFunction)
+			.done(statusSuccessFunction)
+			.fail(statusRejectFunction)
 	})
 
 

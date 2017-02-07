@@ -85,6 +85,9 @@ $extra-large-screen: "(max-width: 1200px)";
 body{
   font-size: calc(16px + 1vmax);
   background-color: grey; 
+  font-family: 'Roboto', sans-serif;
+
+
 }
 
 .small-screen-stack {
@@ -173,9 +176,16 @@ figure{
   display: none;
 }
 
-.weather-radar-row{
-  justify-content: flex-start;
+
+.radar-section{
+  border: none;
+  box-shadow: none;
 }
+.weather-radar-row{
+  justify-content: space-between;
+}
+
+
 
 #radar-image{
  width: 293px;
@@ -286,6 +296,9 @@ body{
   height: 10vh;
   margin-top: 20px;
   justify-content: center;
+     @media #{$small-screen}{
+      height: 10vmax;
+  }
 }
 #airport-form-input{
   height: 10vh;
@@ -293,9 +306,7 @@ body{
    &:valid{
       text-transform: uppercase;
     }
-     @media #{$small-screen}{
-      height: 10vmax;
-  }
+
 }
 
 
