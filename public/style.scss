@@ -4,6 +4,7 @@ https://css-tricks.com/box-sizing/*/
 * { box-sizing: border-box; }
 
 
+//custom framework
 //breakpoints
 $small-screen: "(max-width: 576px)";
 $medium-screen: "(max-width: 768px)";
@@ -18,7 +19,6 @@ $extra-large-screen: "(max-width: 1200px)";
   //can change margin
   border-left: 2px solid black;
   border-right: 2px solid black;
-
   margin-top: 5px;
 }
 
@@ -76,17 +76,6 @@ $extra-large-screen: "(max-width: 1200px)";
   justify-content: space-around;
   align-items: center;
   opacity: .8;
-  //add all container properties like this!!! it would be a cool mini-css framework!!!
-  //do same for items with item properties?
-}
-
-
-
-body{
-  font-size: calc(16px + 1vmax);
-  background-color: grey; 
-  font-family: 'Roboto', sans-serif;
-
 
 }
 
@@ -114,6 +103,27 @@ body{
   }
 }
 
+//end custom framework
+
+
+//colors
+$background-color: #E0E0E0;
+$yellow: hsl(60, 100%, 70%);
+$dark-red: darken(red, 20);
+$sky-blue: hsla(212, 99%, 73%, 0.5);
+$airplane-color: hsl(180, 1%, 23%);
+$cloud-color: grey;
+
+//generic html elements
+body{
+  font-size: calc(16px + 1vmax);
+  background-color: grey; 
+  font-family: 'Roboto', sans-serif;
+  background-color: $background-color;
+  line-height: 1.1;
+  user-select: none;
+  cursor: default;
+}
 
 section{
   visibility: hidden;
@@ -128,31 +138,37 @@ figure{
   visibility: hidden;
   margin-top: 50px;
 }
+
+//end generic html elements
+
+
+//form
 .airport-form-row{
   height: 10vh;
   margin-top: 20px;
-  @media #{$small-screen}{
-    position: absolute;
-    bottom: 0;
+   justify-content: center;
+     @media #{$small-screen}{
+      height: 10vmax;
   }
 }
+
 #airport-form-input{
   height: 10vh;
   font-size: 3vh;
    &:valid{
       text-transform: uppercase;
     }
-
      @media #{$small-screen}{
       height: 10vmax;
   }
 }
 
-
 #airport-form-submit{
   height: 10vh;
   font-size: 3vh;
+  background-color: gray;
 }
+//end form
 
 .airport-heading-row{
   justify-content: center;
@@ -168,31 +184,22 @@ figure{
 }
 
 
-.visibility-hidden{
-  visibility: hidden; 
-}
-
-.display-none{
-  display: none;
-}
-
-
+//radar and raw report
 .radar-section{
   border: none;
   box-shadow: none;
 }
 .weather-radar-row{
   justify-content: space-between;
+  @media #{$small-screen}{
+    justify-content: center;
+  }
 }
-
-
 
 #radar-image{
  width: 293px;
  height: 213px;
 cursor: pointer;
-
-
 }
 
 .double-sized-radar{
@@ -200,23 +207,10 @@ cursor: pointer;
   height: 65vw !important;
   margin: 0 auto;
 }
+//end radar and raw report
 
-//overlay
 
-$background-color: #E0E0E0;
-$yellow: hsl(60, 100%, 70%);
-$dark-red: darken(red, 20);
-$sky-blue: hsla(212, 99%, 73%, 0.5);
-$airplane-color: hsl(180, 1%, 23%);
-$cloud-color: grey;
-
-body{
-  background-color: $background-color;
-  line-height: 1.1;
-  user-select: none;
-  cursor: default;
-}
-
+//empty-state
 .sky-container{
   background-color: $sky-blue;
   width: 100vw;
@@ -230,7 +224,6 @@ body{
   color: grey;
   font-size: 10vmax;
   opacity: .5;
-
 }
 
 .cloud-layer-1{
@@ -245,7 +238,6 @@ body{
   color: $yellow;
   font-size: 10vmax;
   opacity: .5;
-
   .sun-icon{
     color: $yellow; 
     text-shadow: 0px 0px 20px $yellow;
@@ -277,43 +269,22 @@ body{
 
 }
 
-.rain-container-2{
-  justify-content: space-around;
-  
-}
 .rain-container-1{
   justify-content: space-around;
   
 }
+
+.rain-container-2{
+  justify-content: space-around;
+  
+}
+
 
 .snow-container{
   display:flex;
   justify-content: space-between;
 }
 
-
-.airport-form-row{
-  height: 10vh;
-  margin-top: 20px;
-  justify-content: center;
-     @media #{$small-screen}{
-      height: 10vmax;
-  }
-}
-#airport-form-input{
-  height: 10vh;
-  font-size: 3vh;
-   &:valid{
-      text-transform: uppercase;
-    }
-
-}
-
-
-#airport-form-submit{
-  height: 10vh;
-  background-color: gray;
-}
 
 .empty-state-heading-row{
   justify-content: center;
@@ -323,4 +294,15 @@ body{
 .empty-state-p-row{
   justify-content: center;
   line-height: 1.5;
+}
+//end empty-state
+
+
+//manipulator classes
+.visibility-hidden{
+  visibility: hidden; 
+}
+
+.display-none{
+  display: none;
 }

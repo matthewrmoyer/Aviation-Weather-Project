@@ -95,11 +95,6 @@ https://css-tricks.com/box-sizing/*/
   align-items: center;
   opacity: .8; }
 
-body {
-  font-size: calc(16px + 1vmax);
-  background-color: grey;
-  font-family: 'Roboto', sans-serif; }
-
 @media (max-width: 576px) {
   .small-screen-stack {
     width: 100%; } }
@@ -116,6 +111,15 @@ body {
   .extra-large-screen-stack {
     width: 100%; } }
 
+body {
+  font-size: calc(16px + 1vmax);
+  background-color: grey;
+  font-family: 'Roboto', sans-serif;
+  background-color: #E0E0E0;
+  line-height: 1.1;
+  user-select: none;
+  cursor: default; }
+
 section {
   visibility: hidden;
   margin: 0 auto;
@@ -130,11 +134,11 @@ figure {
 
 .airport-form-row {
   height: 10vh;
-  margin-top: 20px; }
+  margin-top: 20px;
+  justify-content: center; }
   @media (max-width: 576px) {
     .airport-form-row {
-      position: absolute;
-      bottom: 0; } }
+      height: 10vmax; } }
 
 #airport-form-input {
   height: 10vh;
@@ -147,7 +151,8 @@ figure {
 
 #airport-form-submit {
   height: 10vh;
-  font-size: 3vh; }
+  font-size: 3vh;
+  background-color: gray; }
 
 .airport-heading-row {
   justify-content: center;
@@ -159,18 +164,15 @@ figure {
 .wind-item {
   flex: 1; }
 
-.visibility-hidden {
-  visibility: hidden; }
-
-.display-none {
-  display: none; }
-
 .radar-section {
   border: none;
   box-shadow: none; }
 
 .weather-radar-row {
   justify-content: space-between; }
+  @media (max-width: 576px) {
+    .weather-radar-row {
+      justify-content: center; } }
 
 #radar-image {
   width: 293px;
@@ -181,12 +183,6 @@ figure {
   width: 90vw !important;
   height: 65vw !important;
   margin: 0 auto; }
-
-body {
-  background-color: #E0E0E0;
-  line-height: 1.1;
-  user-select: none;
-  cursor: default; }
 
 .sky-container {
   background-color: rgba(118, 182, 254, 0.5);
@@ -236,33 +232,15 @@ body {
   justify-content: space-between;
   opacity: .5; }
 
-.rain-container-2 {
+.rain-container-1 {
   justify-content: space-around; }
 
-.rain-container-1 {
+.rain-container-2 {
   justify-content: space-around; }
 
 .snow-container {
   display: flex;
   justify-content: space-between; }
-
-.airport-form-row {
-  height: 10vh;
-  margin-top: 20px;
-  justify-content: center; }
-  @media (max-width: 576px) {
-    .airport-form-row {
-      height: 10vmax; } }
-
-#airport-form-input {
-  height: 10vh;
-  font-size: 3vh; }
-  #airport-form-input:valid {
-    text-transform: uppercase; }
-
-#airport-form-submit {
-  height: 10vh;
-  background-color: gray; }
 
 .empty-state-heading-row {
   justify-content: center;
@@ -271,5 +249,11 @@ body {
 .empty-state-p-row {
   justify-content: center;
   line-height: 1.5; }
+
+.visibility-hidden {
+  visibility: hidden; }
+
+.display-none {
+  display: none; }
 
 /*# sourceMappingURL=style.css.map */

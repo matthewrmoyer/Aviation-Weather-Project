@@ -3,7 +3,7 @@
 	<head>
 		<title>Aviation Wx</title>
 		<script src="https://use.fontawesome.com/57a2949668.js" async></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css">
 		<script src ="jquery.js" defer></script>
 		<script src ="script.js" defer></script>
@@ -41,7 +41,7 @@
 					<i class="fa fa-plane airplane-icon" aria-hidden="true"></i>
 					
 				</div>
-					<div class = "row airport-form-row">
+				<div class = "row airport-form-row">
 					<input class =  "col-7" type="text" placeholder="Enter ICAO Code" name="airport-input" id = "airport-form-input" autofocus>
 					<input class = "col-3" type="submit" name="airport-submit" id = "airport-form-submit">
 				</div>
@@ -81,7 +81,6 @@
 					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
 					<i class="fa fa-tint rain-icon" aria-hidden="true"></i>
 				</div>
-
 			</div>
 			<div class = "empty-state-text">
 				<div class ="row empty-state-heading-row">
@@ -136,18 +135,18 @@
 				<div class = "row wind-row"></div>
 			</section>
 			<section class = "radar-section">
-			<figure>
-				<figcaption>Current Radar</figcaption>
-				<p>Click to expand <i class="fa fa-expand" aria-hidden="true"></i>
-				</p>
-				<div class = "row weather-radar-row">
-					<img class = "col-6" id = "radar-image" style="user-select: none; src="https://icons.wxug.com/data/weather-maps/radar/united-states/denver-colorado-region-current-radar-animation.gif" width="457" height="333"><div class = "col-6">
-						<h3>Raw Reports</h3>
-						<p class = "raw-metar"></p>
+				<figure>
+					<figcaption>Current Radar</figcaption>
+					<p>Click to expand <i class="fa fa-expand" aria-hidden="true"></i>
+					</p>
+					<div class = "row weather-radar-row">
+						<img class = "col-6 small-screen-stack" id = "radar-image" style = "user-select:none; src= "https://icons.wxug.com/data/weather-maps/radar/united-states/denver-colorado-region-current-radar-animation.gif" width="457" height="333">
+						<div class = "col-6 small-screen-stack">
+							<h3>Raw Reports</h3>
+							<p class = "raw-metar"></p>
+						</div>
 					</div>
-				</div>
-				
-			</figure>
+				</figure>
 			</section>
 		</article>
 	</body>
