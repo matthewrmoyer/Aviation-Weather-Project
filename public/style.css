@@ -164,8 +164,9 @@ section {
   margin: 0 auto;
   width: 90vw;
   margin-top: 50px;
+  padding-top: 10px;
   padding-bottom: 10px;
-  box-shadow: 0 0 10px 0px black; }
+  box-shadow: 0 0 15px 0px black; }
 
 figure {
   visibility: hidden;
@@ -203,6 +204,21 @@ figure {
   -ms-flex-pack: center;
   justify-content: center;
   visibility: hidden; }
+
+.general {
+  background-color: rgba(0, 255, 47, 0.5); }
+
+.temperature {
+  background-color: rgba(255, 30, 0, 0.5); }
+
+.flight-rules {
+  background-color: rgba(174, 0, 255, 0.5); }
+
+.cloud {
+  background-color: rgba(0, 234, 255, 0.5); }
+
+.wind {
+  background-color: rgba(200, 193, 55, 0.5); }
 
 .cloud-item {
   -webkit-box-flex: 1;
@@ -277,12 +293,12 @@ figure {
   -ms-flex-align: center;
   align-items: center;
   margin: 20px;
-  color: #ffff66;
+  color: rgba(200, 193, 55, 0.5);
   font-size: 10vmax;
   opacity: .5; }
   .sun-container .sun-icon {
-    color: #ffff66;
-    text-shadow: 0px 0px 20px #ffff66; }
+    color: rgba(200, 193, 55, 0.5);
+    text-shadow: 0px 0px 20px rgba(200, 193, 55, 0.5); }
   .sun-container .thermometer-icon {
     color: #990000;
     font-size: 5vmax; }

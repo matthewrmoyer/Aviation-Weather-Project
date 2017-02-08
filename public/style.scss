@@ -119,6 +119,11 @@ $dark-red: darken(red, 20);
 $sky-blue: hsla(212, 99%, 73%, 0.5);
 $airplane-color: hsl(180, 1%, 23%);
 $cloud-color: grey;
+$green: hsla(131, 100%, 50%, 0.5);
+$blue: hsla(185, 100%, 50%, 0.5);
+$red: hsla(7, 100%, 50%, 0.5);
+$purple: hsla(281, 100%, 50%, 0.5);
+$yellow: hsla(57, 57%, 50%, 0.5);
 
 /*generic html elements*/
 body{
@@ -139,8 +144,9 @@ section{
   margin: 0 auto;
   width: 90vw;
   margin-top: 50px;
+  padding-top: 10px;
   padding-bottom: 10px;
-  box-shadow:  0 0 10px 0px black;
+  box-shadow:  0 0 15px 0px black;
 }
 
 figure{
@@ -186,6 +192,27 @@ figure{
       -ms-flex-pack: center;
           justify-content: center;
   visibility: hidden;
+}
+
+.general{
+  background-color: $green;
+}
+
+.temperature{
+  background-color: $red;
+}
+
+.flight-rules{
+  background-color: $purple;
+}
+
+.cloud{
+  background-color: $blue;
+}
+
+
+.wind{
+  background-color: $yellow;
 }
 
 .cloud-item{
