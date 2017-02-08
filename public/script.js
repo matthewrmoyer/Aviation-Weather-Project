@@ -9,11 +9,12 @@ $(document).ready(function() {
 	var $errorHeading = $("#error-heading");
 	var $weatherInfo = $(".weather-info")
 	var $rawMetar = $(".raw-metar");
+	var $rawTaf = $(".raw-taf");
 	var $location = $(".city-and-state");
 	var $timeRow = $(".time-row");
 	var $stationRow = $(".station-row");
 	var $flightRulesRow = $(".flight-rules-row");
-	var $altimeterRow =  $(".altimeter-row");
+	var $altimeterRow = $(".altimeter-row");
 	var $cloudListRow = $(".cloud-list-row");
 	var $cloudSection = $(".cloud-section");
 	var $ceilingRow = $(".ceiling-row");
@@ -50,6 +51,9 @@ $(document).ready(function() {
 		//empty the error heading so that it doesnt stack text if user enters mulitple incorrect airport codes
 		$errorHeading.empty();
 		if (data["Error"]) {
+			if (airportCode.charAt(0) != "K") {
+				alert("Did you forget the 'K' dummy?");
+			}
 			console.log("NOT AN AIRPORT");
 			$errorHeading.text("Airport Not Found");
 			//won't show previous airport search info  if there is an error on the current search
@@ -65,8 +69,62 @@ $(document).ready(function() {
 	}
 
 	function showRawMetar(data) {
-		var rawMetar = data["Raw-Report"];
-		$rawMetar.text(rawMetar);
+		console.log("DATA: ");
+		console.log(data);
+
+		var metars = data.getElementsByTagName("METAR");
+		var firstMetar = metars[0];
+		console.log("FIRST METAR: ");
+		console.log(metars[0]);
+
+
+		var rawElement = firstMetar.getElementsByTagName("raw_text");
+		console.log("Raw Text Element: ")
+		console.log(firstMetar.getElementsByTagName("raw_text"));
+
+
+		var rawObject = rawElement[0];
+		console.log("Raw Text Object: ");
+		console.log(rawElement[0]);
+
+
+		var rawHTML = rawObject["innerHTML"];
+		console.log("Raw Text HTML: ");
+		console.log(rawObject["innerHTML"]);
+
+		$rawMetar.text(rawHTML);
+
+	}
+
+
+	function showRawTaf(data) {
+		console.log("DATA: ");
+		console.log(data);
+
+		var tafs = data.getElementsByTagName("TAF");
+		var firstTAF = tafs[0];
+		console.log("FIRST TAF: ");
+		console.log(tafs[0]);
+
+
+		var rawElement = firstTAF.getElementsByTagName("raw_text");
+		console.log("Raw Text Element: ")
+		console.log(firstTAF.getElementsByTagName("raw_text"));
+
+
+		var rawObject = rawElement[0];
+		console.log("Raw Text Object: ");
+		console.log(rawElement[0]);
+
+
+		var rawHTML = rawObject["innerHTML"];
+		console.log("Raw Text HTML: ");
+		console.log(rawObject["innerHTML"]);
+
+		$rawTaf.text(rawHTML);
+
+
+
 	}
 
 	function showAirportLocation(data) {
@@ -244,7 +302,7 @@ $(document).ready(function() {
 		}
 		temperature = temperature.join("");
 		var temperatureUnit = data["Units"]["Temperature"];
-		$temperatureRow.text("Temperature: " + temperature + " " +  temperatureUnit);
+		$temperatureRow.text("Temperature: " + temperature + " " + temperatureUnit);
 	}
 
 	function showDewpoint(data) {
@@ -565,7 +623,6 @@ $(document).ready(function() {
 			case "Wyoming":
 				radarURL = "https://icons.wxug.com/data/weather-maps/radar/united-states/riverton-wyoming-region-current-radar-animation.gif";
 				break;
-
 		}
 		document.getElementById("radar-image").src = radarURL;
 
@@ -589,7 +646,6 @@ $(document).ready(function() {
 		showWindGust(data);
 		showWindVariableDirection(data);
 		showCeiling(data);
-		showRawMetar(data);
 		//in the css file, these elements' visibility's are set to hidden, so that the headings arent listed on the page before user provides an aiport
 		$("section").css("visibility", "visible");
 		$airportHeadingRow.css("visibility", "visible");
@@ -614,6 +670,15 @@ $(document).ready(function() {
 		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD")
 	}
 
+	function awsTafSuccess(data) {
+		showRawTaf(data);
+	}
+
+	function awsMetarSuccess(data){
+		showRawMetar(data);
+
+	}
+
 	//hitting enter on input field triggers submit button click
 	airportFormInput.onkeydown = function(e) {
 		if (e.keyCode == 13) {
@@ -636,13 +701,19 @@ $(document).ready(function() {
 		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
 			.done(statusSuccessFunction)
 			.fail(statusRejectFunction)
+		$.get("http://galvanize-cors-proxy.herokuapp.com/http://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=4")
+			.done(awsTafSuccess)
+			.fail(avwxRejectFunction)
+		$.get("http://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString="+airportCode+"&hoursBeforeNow=2")
+			.done(awsMetarSuccess)
+			.fail(avwxRejectFunction)
+
 	})
 
 
 	$("#radar-image, .fa-expand").on("click", function() {
 		$("#radar-image").toggleClass("double-sized-radar");
 	});
-
 
 
 

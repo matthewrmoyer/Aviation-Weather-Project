@@ -232,7 +232,8 @@ figure {
 #radar-image {
   width: 293px;
   height: 213px;
-  cursor: pointer; }
+  cursor: pointer;
+  align-self: flex-start; }
 
 .double-sized-radar {
   width: 90vw !important;
