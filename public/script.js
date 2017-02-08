@@ -1,7 +1,5 @@
 $(document).ready(function() {
 
-
-
 	//global variables
 	var $submitButton = $("#airport-form-submit");
 	var $airportCodeSpace = $("#airport-code-space");
@@ -35,6 +33,10 @@ $(document).ready(function() {
 	var airportCode;
 	var airportIATA;
 
+
+	if (($(window).width()) > 1200) {
+		document.getElementById("airport-form-input").scrollIntoView(true);
+	}
 
 	//set airport code variable to user input 
 	function getAirportCode() {
@@ -678,10 +680,11 @@ $(document).ready(function() {
 	//do if ajax fails
 	function statusRejectFunction() {
 		console.log("STATUS REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
+		$(".status-loading").css("display", "none");
 	}
 
 	function avwxRejectFunction() {
-		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD")
+		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 	}
 
 	function awsTafSuccess(data) {
@@ -690,7 +693,7 @@ $(document).ready(function() {
 	}
 
 	function awsTafFail() {
-		$rawTafContainer.css("visibility", "hidden");
+		$rawTafContainer.css("display", "none");
 	}
 
 	function awsMetarSuccess(data) {
@@ -699,7 +702,7 @@ $(document).ready(function() {
 	}
 
 	function awsMetarFail() {
-		$rawMetarContainer.css("visibility", "hidden");
+		$rawMetarContainer.css("display", "none");
 	}
 
 	//hitting enter on input field triggers submit button click
@@ -725,10 +728,10 @@ $(document).ready(function() {
 		$.get("https://services.faa.gov/airport/status/" + airportIATA + "?format=application/JSON")
 			.done(statusSuccessFunction)
 			.fail(statusRejectFunction)
-		$.get("http://galvanize-cors-proxy.herokuapp.com/http://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=4")
+		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=4")
 			.done(awsTafSuccess)
 			.fail(awsTafFail)
-		$.get("http://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=2")
+		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=2")
 			.done(awsMetarSuccess)
 			.fail(awsMetarFail)
 	})
