@@ -8,7 +8,9 @@ $(document).ready(function() {
 	var $airportFormInput = $("#airport-form-input");
 	var $errorHeading = $("#error-heading");
 	var $weatherInfo = $(".weather-info")
+	var $rawMetarContainer = $(".raw-metar-container");
 	var $rawMetar = $(".raw-metar");
+	var $rawTafContainer = $(".raw-taf-container");
 	var $rawTaf = $(".raw-taf");
 	var $location = $(".city-and-state");
 	var $timeRow = $(".time-row");
@@ -674,9 +676,17 @@ $(document).ready(function() {
 		showRawTaf(data);
 	}
 
+	function awsTafFail(){
+		$rawTafContainer.css("visibility", "hidden");
+	}
+
 	function awsMetarSuccess(data){
 		showRawMetar(data);
 
+	}
+
+	function awsMetarFail(){
+		$rawMeterContainer.css("visibility", "hidden");
 	}
 
 	//hitting enter on input field triggers submit button click
@@ -703,10 +713,10 @@ $(document).ready(function() {
 			.fail(statusRejectFunction)
 		$.get("http://galvanize-cors-proxy.herokuapp.com/http://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=4")
 			.done(awsTafSuccess)
-			.fail(avwxRejectFunction)
+			.fail(awsTafFail)
 		$.get("http://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString="+airportCode+"&hoursBeforeNow=2")
 			.done(awsMetarSuccess)
-			.fail(avwxRejectFunction)
+			.fail(awsMetarFail)
 
 	})
 
