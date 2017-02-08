@@ -365,6 +365,16 @@ $(document).ready(function() {
 
 	function showWindVariableDirection(data) {
 		var windVariableDirection = data["Wind-Variable-Dir"];
+		//TODO check if this works
+		// windVariableDirection[0] = windVariableDirection[0].toString().split("");
+		// if (windVariableDirection[0][0] == "0") {
+		// 	windVariableDirection[0][0] = [""];
+		// }
+
+		// windVariableDirection[1] = windVariableDirection[1].toString().split("");
+		// if (windVariableDirection[1][0] == "0") {
+		// 	windVariableDirection[1][0] = [""];
+		// }
 		if (windVariableDirection.length > 0) {
 			$windRow.append("<div class = 'col-2 wind-item'>" + "Variable: " + windVariableDirection[0] + "&deg" + " to " + windVariableDirection[1] + "&deg" + "</div>");
 		}
@@ -633,6 +643,7 @@ $(document).ready(function() {
 	//do if ajax request is successful
 	function avwxSuccessFunction(data) {
 		console.log(data);
+		$(".avwx-loading").css("display", "none");
 		checkError(data);
 		$windRow.empty();
 		showTime(data);
@@ -656,6 +667,7 @@ $(document).ready(function() {
 	function statusSuccessFunction(data) {
 		console.log("staus data: ");
 		console.log(data);
+		$(".status-loading").css("display", "none");
 		showAirportName(data);
 		showAirportLocation(data);
 		showWeatherType(data)
@@ -673,20 +685,21 @@ $(document).ready(function() {
 	}
 
 	function awsTafSuccess(data) {
+		$(".raw-taf-loading").css("display", "none");
 		showRawTaf(data);
 	}
 
-	function awsTafFail(){
+	function awsTafFail() {
 		$rawTafContainer.css("visibility", "hidden");
 	}
 
-	function awsMetarSuccess(data){
+	function awsMetarSuccess(data) {
 		showRawMetar(data);
-
+		$(".raw-metar-loading").css("display", "none");
 	}
 
-	function awsMetarFail(){
-		$rawMeterContainer.css("visibility", "hidden");
+	function awsMetarFail() {
+		$rawMetarContainer.css("visibility", "hidden");
 	}
 
 	//hitting enter on input field triggers submit button click
@@ -697,6 +710,7 @@ $(document).ready(function() {
 	};
 
 	$submitButton.on("click", function(event) {
+		$(".loading").css("display", "block");
 		$emptyStateOverlay.fadeOut();
 		$airportName.empty();
 		$location.empty();
@@ -714,10 +728,9 @@ $(document).ready(function() {
 		$.get("http://galvanize-cors-proxy.herokuapp.com/http://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=tafs&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=4")
 			.done(awsTafSuccess)
 			.fail(awsTafFail)
-		$.get("http://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString="+airportCode+"&hoursBeforeNow=2")
+		$.get("http://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=2")
 			.done(awsMetarSuccess)
 			.fail(awsMetarFail)
-
 	})
 
 

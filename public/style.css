@@ -214,6 +214,9 @@ figure {
   -ms-flex: 1;
   flex: 1; }
 
+.loading {
+  display: none; }
+
 /*radar and raw report*/
 .radar-section {
   border: none;
