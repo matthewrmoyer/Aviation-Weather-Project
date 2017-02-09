@@ -12,8 +12,8 @@ $(document).ready(function() {
 	var $rawTaf = $(".raw-taf");
 
 
-	var $rawAirepContainer = $(".raw-airep-container");
-	var $rawAirep = $(".raw-airep");
+	var $rawPirepContainer = $(".raw-pirep-container");
+	var $rawPirep = $(".raw-pirep");
 
 	var $location = $(".city-and-state");
 	var $timeRow = $(".time-row");
@@ -135,16 +135,16 @@ $(document).ready(function() {
 		$rawTaf.text(rawHTML);
 	}
 
-	function showRawAirep(data) {
-		$rawAirep.text(" ");
-		console.log("Airep DATA: ");
+	function showRawPirep(data) {
+		$rawPirep.text(" ");
+		console.log("Pirep DATA: ");
 		console.log(data);
-		var airCraftReport = data.getElementsByTagName("AircraftReport");
+		var airCraftReport = data.getElementsByTagName("PIREP");
 		for (var i = 0; i < airCraftReport.length; i++) {
 			var rawElement = airCraftReport[i].getElementsByTagName("raw_text");
 			var rawObject = rawElement[0];
 			var rawHTML = rawObject["innerHTML"];
-			$rawAirep.append(rawHTML + "<br>" + "<br>");
+			$rawPirep.append(rawHTML + "<br>" + "<br>");
 		}
 
 	}
@@ -247,6 +247,7 @@ $(document).ready(function() {
 			}
 			var firstCloudAltitudeCharacter = cloudInfo[1].charAt(0);
 			var secondCloudAltitudeCharacter = cloudInfo[1].charAt(1);
+
 			if (firstCloudAltitudeCharacter === "0") {
 				cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
 				//if first character is 0, check if second character is 0
@@ -728,12 +729,12 @@ $(document).ready(function() {
 		$rawMetarContainer.css("display", "none");
 	}
 
-	function awsAirepSuccess(data) {
-		showRawAirep(data);
+	function awsPirepSuccess(data) {
+		showRawPirep(data);
 	}
 
-	function awsAirepFail() {
-		console.log("AIREP Fail");
+	function awsPirepFail() {
+		console.log("Pirep Fail");
 	}
 
 	function googleMapsSuccess(data) {
@@ -743,9 +744,9 @@ $(document).ready(function() {
 		airportLatitude = latitude;
 		airportLongitude = longitude;
 		console.log("airport location: " + airportLatitude + " " + airportLongitude);
-		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=aircraftreports&requestType=retrieve&format=xml&radialDistance=50;" + airportLongitude + "," + airportLatitude + "&hoursBeforeNow=3")
-			.done(awsAirepSuccess)
-			.fail(awsAirepFail)
+		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=pireps&requestType=retrieve&format=xml&radialDistance=20;"+airportLongitude+","+airportLatitude+"&hoursBeforeNow=3")
+			.done(awsPirepSuccess)
+			.fail(awsPirepFail)
 	}
 
 	function googleMapsFail() {
@@ -784,7 +785,6 @@ $(document).ready(function() {
 		$.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + airportCode + "&key=AIzaSyCs2M4Mc_F7wg_inhiuHuw4SZ3NcJJg_rI")
 			.done(googleMapsSuccess)
 			.fail(googleMapsFail)
-
 	})
 
 
