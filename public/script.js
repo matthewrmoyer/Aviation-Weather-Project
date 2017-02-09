@@ -10,6 +10,11 @@ $(document).ready(function() {
 	var $rawMetar = $(".raw-metar");
 	var $rawTafContainer = $(".raw-taf-container");
 	var $rawTaf = $(".raw-taf");
+
+
+	var $rawAirepContainer = $(".raw-airep-container");
+	var $rawAirep = $(".raw-airep");
+
 	var $location = $(".city-and-state");
 	var $timeRow = $(".time-row");
 	var $stationRow = $(".station-row");
@@ -32,6 +37,8 @@ $(document).ready(function() {
 
 	var airportCode;
 	var airportIATA;
+	var airportLatitude;
+	var airportLongitude;
 
 
 	if (($(window).width()) > 1200) {
@@ -126,8 +133,21 @@ $(document).ready(function() {
 		console.log(rawObject["innerHTML"]);
 
 		$rawTaf.text(rawHTML);
+	}
 
+	function showRawAirep(data) {
 
+		$rawAirep.text(" ");
+		console.log("Airep DATA: ");
+		console.log(data);
+
+		var airCraftReport = data.getElementsByTagName("AircraftReport");
+		for (var i = 0; i < airCraftReport.length; i++) {
+			var rawElement = airCraftReport[i].getElementsByTagName("raw_text");
+			var rawObject = rawElement[0];
+			var rawHTML = rawObject["innerHTML"];
+			$rawAirep.append(rawHTML + "<br>"+ "<br>");
+		}
 
 	}
 
@@ -231,9 +251,9 @@ $(document).ready(function() {
 			var secondCloudAltitudeCharacter = cloudInfo[1].charAt(1);
 			if (firstCloudAltitudeCharacter === "0") {
 				cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
-					//if first character is 0, check if second character is 0
-					//if yes, then get rid of it using substring
-					//stays at posiition 1 because got rid of og position one in above if statement?
+				//if first character is 0, check if second character is 0
+				//if yes, then get rid of it using substring
+				//stays at posiition 1 because got rid of og position one in above if statement?
 				if (secondCloudAltitudeCharacter === "0") {
 					cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
 				}
@@ -264,8 +284,8 @@ $(document).ready(function() {
 			//changed bkn to broken, ovc to overcast because your changing it in other function
 			if (cloudLayer === "Broken" || cloudLayer === "Overcast" || cloudLayer === "Vertical Visibility") {
 				//set variable to first character of ceiling alititude
-				 firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
-				 secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
+				firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
+				secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
 				//check if the first character is equal to 0
 				//if yes, then get rid of it using substring 
 				if (firstCeilingAltitudeCharacter === "0") {
@@ -710,6 +730,30 @@ $(document).ready(function() {
 		$rawMetarContainer.css("display", "none");
 	}
 
+	function awsAirepSuccess(data) {
+		showRawAirep(data);
+	}
+
+	function awsAirepFail() {
+		console.log("AIREP Fail");
+	}
+
+	function googleMapsSuccess(data) {
+		console.log(data);
+		var latitude = data["results"][0]["geometry"]["location"]["lat"];
+		var longitude = data["results"][0]["geometry"]["location"]["lng"];
+		airportLatitude = latitude;
+		airportLongitude = longitude;
+		console.log("airport location: " + airportLatitude + " " + airportLongitude);
+		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=aircraftreports&requestType=retrieve&format=xml&radialDistance=20;" + airportLongitude + "," + airportLatitude + "&hoursBeforeNow=3")
+			.done(awsAirepSuccess)
+			.fail(awsAirepFail)
+	}
+
+	function googleMapsFail() {
+		console.log("MAPS FAIL");
+	}
+
 	//hitting enter on input field triggers submit button click
 	airportFormInput.onkeydown = function(e) {
 		if (e.keyCode == 13) {
@@ -739,6 +783,10 @@ $(document).ready(function() {
 		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=metars&requestType=retrieve&format=xml&stationString=" + airportCode + "&hoursBeforeNow=2")
 			.done(awsMetarSuccess)
 			.fail(awsMetarFail)
+		$.get("https://maps.googleapis.com/maps/api/geocode/json?address=" + airportCode + "&key=AIzaSyCs2M4Mc_F7wg_inhiuHuw4SZ3NcJJg_rI")
+			.done(googleMapsSuccess)
+			.fail(googleMapsFail)
+
 	})
 
 
