@@ -262,7 +262,7 @@ $(document).ready(function() {
 			var secondCeilingAltitudeCharacter;
 			console.log(cloudList[i]);
 			//changed bkn to broken, ovc to overcast because your changing it in other function
-			if (cloudLayer === "Broken" || cloudLayer === "Overcast") {
+			if (cloudLayer === "Broken" || cloudLayer === "Overcast" || cloudLayer === "Vertical Visibility") {
 				//set variable to first character of ceiling alititude
 				 firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
 				 secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
@@ -678,7 +678,7 @@ $(document).ready(function() {
 		$(".status-loading").css("display", "none");
 		showAirportName(data);
 		showAirportLocation(data);
-		showWeatherType(data)
+		showWeatherType(data);
 		getRadarSource(data);
 		$("figure").css("visibility", "visible");
 	}
