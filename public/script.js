@@ -136,17 +136,15 @@ $(document).ready(function() {
 	}
 
 	function showRawAirep(data) {
-
 		$rawAirep.text(" ");
 		console.log("Airep DATA: ");
 		console.log(data);
-
 		var airCraftReport = data.getElementsByTagName("AircraftReport");
 		for (var i = 0; i < airCraftReport.length; i++) {
 			var rawElement = airCraftReport[i].getElementsByTagName("raw_text");
 			var rawObject = rawElement[0];
 			var rawHTML = rawObject["innerHTML"];
-			$rawAirep.append(rawHTML + "<br>"+ "<br>");
+			$rawAirep.append(rawHTML + "<br>" + "<br>");
 		}
 
 	}
@@ -745,7 +743,7 @@ $(document).ready(function() {
 		airportLatitude = latitude;
 		airportLongitude = longitude;
 		console.log("airport location: " + airportLatitude + " " + airportLongitude);
-		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=aircraftreports&requestType=retrieve&format=xml&radialDistance=20;" + airportLongitude + "," + airportLatitude + "&hoursBeforeNow=3")
+		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=aircraftreports&requestType=retrieve&format=xml&radialDistance=50;" + airportLongitude + "," + airportLatitude + "&hoursBeforeNow=3")
 			.done(awsAirepSuccess)
 			.fail(awsAirepFail)
 	}
