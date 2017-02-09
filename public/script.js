@@ -44,7 +44,7 @@ $(document).ready(function() {
 	}
 
 	function getAirportIATA() {
-		airportIATA = $airportFormInput.val().toUpperCase()
+		airportIATA = $airportFormInput.val().toUpperCase();
 		airportIATA = airportIATA.slice(1, airportIATA.length);
 	}
 
@@ -55,7 +55,7 @@ $(document).ready(function() {
 		//empty the error heading so that it doesnt stack text if user enters mulitple incorrect airport codes
 		$errorHeading.empty();
 		if (data["Error"]) {
-			if (airportCode.charAt(0) != "K") {
+			if (airportCode.charAt(0) !== "K") {
 				alert("Did you forget the 'K' dummy?");
 			}
 			console.log("NOT AN AIRPORT");
@@ -112,7 +112,7 @@ $(document).ready(function() {
 
 
 		var rawElement = firstTAF.getElementsByTagName("raw_text");
-		console.log("Raw Text Element: ")
+		console.log("Raw Text Element: ");
 		console.log(firstTAF.getElementsByTagName("raw_text"));
 
 
@@ -158,7 +158,7 @@ $(document).ready(function() {
 		var altimeterUnits = data["Units"]["Altimeter"];
 		//if the altimeter unit is "inHg", then there needs to be a decimal place after 2 digits
 		//if the alitmeter unit is not "inHg", it does not need a decimal 
-		if (altimeterUnits == "inHg") {
+		if (altimeterUnits === "inHg") {
 			//change to string and split it into an array with nothing in between each element
 			altimeter = altimeter.toString().split("");
 			//inject a "." at index 2 and delete 0 elements
@@ -200,6 +200,10 @@ $(document).ready(function() {
 					cloudInfo[0] = "Broken";
 					break;
 
+				case "VV":
+					cloudInfo[0] = "Vertical Visibility";
+					break;
+
 				case "CB":
 					cloudInfo[0] = "Cumulonimbus";
 					break;
@@ -225,13 +229,13 @@ $(document).ready(function() {
 			}
 			var firstCloudAltitudeCharacter = cloudInfo[1].charAt(0);
 			var secondCloudAltitudeCharacter = cloudInfo[1].charAt(1);
-			if (firstCloudAltitudeCharacter == "0") {
-				cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length)
+			if (firstCloudAltitudeCharacter === "0") {
+				cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
 					//if first character is 0, check if second character is 0
 					//if yes, then get rid of it using substring
 					//stays at posiition 1 because got rid of og position one in above if statement?
-				if (secondCloudAltitudeCharacter == "0") {
-					cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length)
+				if (secondCloudAltitudeCharacter === "0") {
+					cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
 				}
 
 			}
@@ -251,23 +255,25 @@ $(document).ready(function() {
 	//return the ceiling
 	function createCeiling(data) {
 		var cloudList = data["Cloud-List"];
-		for (i = 0; i < cloudList.length; i++) {
+		for (var i = 0; i < cloudList.length; i++) {
 			var cloudLayer = cloudList[i][0];
 			var ceilingAltitude = cloudList[i][1];
+			var firstCeilingAltitudeCharacter;
+			var secondCeilingAltitudeCharacter;
 			console.log(cloudList[i]);
 			//changed bkn to broken, ovc to overcast because your changing it in other function
-			if (cloudLayer == "Broken" || cloudLayer == "Overcast") {
+			if (cloudLayer === "Broken" || cloudLayer === "Overcast") {
 				//set variable to first character of ceiling alititude
-				var firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
-				var secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
+				 firstCeilingAltitudeCharacter = ceilingAltitude.charAt(0);
+				 secondCeilingAltitudeCharacter = ceilingAltitude.charAt(1);
 				//check if the first character is equal to 0
 				//if yes, then get rid of it using substring 
-				if (firstCeilingAltitudeCharacter == "0") {
+				if (firstCeilingAltitudeCharacter === "0") {
 					ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
 						//if first character is 0, check if second character is 0
 						//if yes, then get rid of it using substring
 						//stays at posiition 1 because got rid of og position one in above if statement?
-					if (secondCeilingAltitudeCharacter == "0") {
+					if (secondCeilingAltitudeCharacter === "0") {
 						ceilingAltitude = ceilingAltitude.substring(1, ceilingAltitude.length)
 					}
 				}
@@ -295,13 +301,13 @@ $(document).ready(function() {
 		//handle negative temperatures
 		//minus 10 degrees comes back as M10
 		//this is changing M10 to -10
-		if (temperature[0] == "M") {
+		if (temperature[0] === "M") {
 			temperature[0] = "-"
-			if (temperature[1] == "0") {
+			if (temperature[1] === "0") {
 				temperature[1] = [""];
 			}
 		}
-		if (temperature[0] == "0") {
+		if (temperature[0] === "0") {
 			temperature[0] = [""];
 		}
 		temperature = temperature.join("");
@@ -316,14 +322,14 @@ $(document).ready(function() {
 		//handle negative dewpoints
 		//minus 10 degrees comes back as M10
 		//this is changing M10 to -10
-		if (dewpoint[0] == "M") {
+		if (dewpoint[0] === "M") {
 			dewpoint[0] = "-"
 			console.log("dew[1]: " + dewpoint[1]);
-			if (dewpoint[1] == "0") {
+			if (dewpoint[1] === "0") {
 				dewpoint[1] = [""];
 			}
 		}
-		if (dewpoint[0] == "0") {
+		if (dewpoint[0] === "0") {
 			dewpoint[0] = [""];
 		}
 		dewpoint = dewpoint.join("");
@@ -339,7 +345,7 @@ $(document).ready(function() {
 	function showWindDirection(data) {
 		var windDirection = data["Wind-Direction"];
 		windDirection = windDirection.toString().split("");
-		if (windDirection[0] == "0") {
+		if (windDirection[0] === "0") {
 			windDirection[0] = [""];
 		}
 		windDirection = windDirection.join("");
@@ -349,12 +355,12 @@ $(document).ready(function() {
 	function showWindSpeed(data) {
 		var windSpeed = data["Wind-Speed"];
 		windSpeed = windSpeed.toString().split("");
-		if (windSpeed[0] == "0") {
+		if (windSpeed[0] === "0") {
 			windSpeed[0] = [""];
 		}
 		windSpeed = windSpeed.join("");
 		var windSpeedUnit = data["Units"]["Wind-Speed"];
-		$windRow.append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + "" + windSpeedUnit + "</div>");
+		$windRow.append("<div class = 'col-2 wind-item'>" + "Speed: " + windSpeed + " " + windSpeedUnit + "</div>");
 	}
 
 	function showWindGust(data) {
@@ -642,7 +648,7 @@ $(document).ready(function() {
 
 	}
 
-	//do if ajax request is successful
+	//ajax functions
 	function avwxSuccessFunction(data) {
 		console.log(data);
 		$(".avwx-loading").css("display", "none");
@@ -677,7 +683,6 @@ $(document).ready(function() {
 		$("figure").css("visibility", "visible");
 	}
 
-	//do if ajax fails
 	function statusRejectFunction() {
 		console.log("STATUS REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 		$(".status-loading").css("display", "none");
