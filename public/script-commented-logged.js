@@ -10,8 +10,11 @@ $(document).ready(function() {
 	var $rawMetar = $(".raw-metar");
 	var $rawTafContainer = $(".raw-taf-container");
 	var $rawTaf = $(".raw-taf");
+
+
 	var $rawPirepContainer = $(".raw-pirep-container");
 	var $rawPirep = $(".raw-pirep");
+
 	var $location = $(".city-and-state");
 	var $timeRow = $(".time-row");
 	var $stationRow = $(".station-row");
@@ -37,6 +40,7 @@ $(document).ready(function() {
 	var airportLatitude;
 	var airportLongitude;
 
+
 	if (($(window).width()) > 1200) {
 		document.getElementById("airport-form-input").scrollIntoView(true);
 	}
@@ -51,7 +55,9 @@ $(document).ready(function() {
 		airportIATA = airportIATA.slice(1, airportIATA.length);
 	}
 
-	//if ajax request comes with a station lookup error, this function will run
+
+
+	//if ajax request comes back with a station lookup error, this function will run
 	function checkError(data) {
 		//empty the error heading so that it doesnt stack text if user enters mulitple incorrect airport codes
 		$errorHeading.empty();
@@ -59,6 +65,7 @@ $(document).ready(function() {
 			if (airportCode.charAt(0) !== "K") {
 				alert("Try adding a K in-front of your airport code");
 			}
+			console.log("NOT AN AIRPORT");
 			$errorHeading.text("Airport Not Found");
 			//won't show previous airport search info  if there is an error on the current search
 			$weatherInfo.addClass("display-none");
@@ -73,26 +80,65 @@ $(document).ready(function() {
 	}
 
 	function showRawMetar(data) {
+		console.log("DATA: ");
+		console.log(data);
+
 		var metars = data.getElementsByTagName("METAR");
 		var firstMetar = metars[0];
+		console.log("FIRST METAR: ");
+		console.log(metars[0]);
+
+
 		var rawElement = firstMetar.getElementsByTagName("raw_text");
+		console.log("Raw Text Element: ")
+		console.log(firstMetar.getElementsByTagName("raw_text"));
+
+
 		var rawObject = rawElement[0];
+		console.log("Raw Text Object: ");
+		console.log(rawElement[0]);
+
+
 		var rawHTML = rawObject["innerHTML"];
+		console.log("Raw Text HTML: ");
+		console.log(rawObject["innerHTML"]);
+
 		$rawMetar.text(rawHTML);
+
 	}
 
 
 	function showRawTaf(data) {
+		console.log("DATA: ");
+		console.log(data);
+
 		var tafs = data.getElementsByTagName("TAF");
 		var firstTAF = tafs[0];
+		console.log("FIRST TAF: ");
+		console.log(tafs[0]);
+
+
 		var rawElement = firstTAF.getElementsByTagName("raw_text");
+		console.log("Raw Text Element: ");
+		console.log(firstTAF.getElementsByTagName("raw_text"));
+
+
 		var rawObject = rawElement[0];
+		console.log("Raw Text Object: ");
+		console.log(rawElement[0]);
+
+
 		var rawHTML = rawObject["innerHTML"];
+		console.log("Raw Text HTML: ");
+		console.log(rawObject["innerHTML"]);
+
 		$rawTaf.text(rawHTML);
 	}
 
 	function showRawPirep(data) {
 		$rawPirep.text(" ");
+		console.log("Pirep DATA: ");
+		console.log(data);
 		var airCraftReport = data.getElementsByTagName("PIREP");
 		for (var i = 0; i < airCraftReport.length; i++) {
 			var rawElement = airCraftReport[i].getElementsByTagName("raw_text");
@@ -100,6 +146,7 @@ $(document).ready(function() {
 			var rawHTML = rawObject["innerHTML"];
 			$rawPirep.append(rawHTML + "<br>" + "<br>");
 		}
+
 	}
 
 	function showAirportLocation(data) {
@@ -107,7 +154,6 @@ $(document).ready(function() {
 		var state = data["state"];
 		$location.text(city + ", " + state);
 	}
-
 	//TODO Add local time
 	function showTime(data) {
 		var time = data["Time"];
@@ -147,7 +193,9 @@ $(document).ready(function() {
 		$cloudListRow.empty();
 		//cloudList is an array of cloud arrays
 		var cloudList = data["Cloud-List"];
+		console.log("clould list length is: " + cloudList.length);
 		var cloudColNum = (12 / cloudList.length);
+
 		if (cloudList.length < 1) {
 			$cloudSection.addClass("display-none");
 		} else {
@@ -199,6 +247,7 @@ $(document).ready(function() {
 			}
 			var firstCloudAltitudeCharacter = cloudInfo[1].charAt(0);
 			var secondCloudAltitudeCharacter = cloudInfo[1].charAt(1);
+
 			if (firstCloudAltitudeCharacter === "0") {
 				cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
 				//if first character is 0, check if second character is 0
@@ -207,10 +256,13 @@ $(document).ready(function() {
 				if (secondCloudAltitudeCharacter === "0") {
 					cloudInfo[1] = cloudInfo[1].substring(1, cloudInfo[1].length);
 				}
+
 			}
 			$cloudListRow.append(`<div class = 'col-${cloudColNum} cloud-item'>` + cloudInfo[0] + ": " + cloudInfo[1] + "00 ft" + "</div>");
 		})
 	}
+
+
 	//ceiling is the first layer of clouds that are broken or overcast
 	//the codes for these are BKN and OVC respectively 
 	//Step 1: Get cloud list from data
@@ -218,6 +270,7 @@ $(document).ready(function() {
 	//Step 3: Get rid of first character in the ceiling alititude if it is a 0 (then do the same for second character)
 	//Step 3: Set cloudLayer to the BKN/OVC and the ceilingAltitude to the next element
 	//Step 4: Write the variables to the ceiling-row
+
 	//return the ceiling
 	function createCeiling(data) {
 		var cloudList = data["Cloud-List"];
@@ -226,6 +279,7 @@ $(document).ready(function() {
 			var ceilingAltitude = cloudList[i][1];
 			var firstCeilingAltitudeCharacter;
 			var secondCeilingAltitudeCharacter;
+			console.log(cloudList[i]);
 			//changed bkn to broken, ovc to overcast because your changing it in other function
 			if (cloudLayer === "Broken" || cloudLayer === "Overcast" || cloudLayer === "Vertical Visibility") {
 				//set variable to first character of ceiling alititude
@@ -252,6 +306,7 @@ $(document).ready(function() {
 	//add ceiling to page
 	function showCeiling(data) {
 		var ceiling = createCeiling(data);
+		console.log("CIELINGGGGGGG: " + ceiling);
 		if (ceiling) {
 			$ceilingRow.text("Ceiling: " + ceiling + "00" + " ft");
 		} else {
@@ -287,7 +342,8 @@ $(document).ready(function() {
 		//minus 10 degrees comes back as M10
 		//this is changing M10 to -10
 		if (dewpoint[0] === "M") {
-			dewpoint[0] = ["-"];
+			dewpoint[0] = "-"
+			console.log("dew[1]: " + dewpoint[1]);
 			if (dewpoint[1] === "0") {
 				dewpoint[1] = [""];
 			}
@@ -341,6 +397,7 @@ $(document).ready(function() {
 		// if (windVariableDirection[0][0] == "0") {
 		// 	windVariableDirection[0][0] = [""];
 		// }
+
 		// windVariableDirection[1] = windVariableDirection[1].toString().split("");
 		// if (windVariableDirection[1][0] == "0") {
 		// 	windVariableDirection[1][0] = [""];
@@ -612,6 +669,7 @@ $(document).ready(function() {
 
 	//ajax functions
 	function avwxSuccessFunction(data) {
+		console.log(data);
 		$(".avwx-loading").css("display", "none");
 		checkError(data);
 		$windRow.empty();
@@ -634,6 +692,8 @@ $(document).ready(function() {
 	}
 
 	function statusSuccessFunction(data) {
+		console.log("staus data: ");
+		console.log(data);
 		$(".status-loading").css("display", "none");
 		showAirportName(data);
 		showAirportLocation(data);
@@ -643,11 +703,12 @@ $(document).ready(function() {
 	}
 
 	function statusRejectFunction() {
+		console.log("STATUS REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 		$(".status-loading").css("display", "none");
 	}
 
 	function avwxRejectFunction() {
-		alert("avwx fail")
+		console.log("REJECTEDDDDDDDDDDDDDDDDDDDDDDDDD");
 	}
 
 	function awsTafSuccess(data) {
@@ -673,21 +734,23 @@ $(document).ready(function() {
 	}
 
 	function awsPirepFail() {
-		alert("pirep fail")
+		console.log("Pirep Fail");
 	}
 
 	function googleMapsSuccess(data) {
+		console.log(data);
 		var latitude = data["results"][0]["geometry"]["location"]["lat"];
 		var longitude = data["results"][0]["geometry"]["location"]["lng"];
 		airportLatitude = latitude;
 		airportLongitude = longitude;
-		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=pireps&requestType=retrieve&format=xml&radialDistance=20;" + airportLongitude + "," + airportLatitude + "&hoursBeforeNow=3")
+		console.log("airport location: " + airportLatitude + " " + airportLongitude);
+		$.get("https://galvanize-cors-proxy.herokuapp.com/https://aviationweather.gov/adds/dataserver_current/httpparam?dataSource=pireps&requestType=retrieve&format=xml&radialDistance=20;"+airportLongitude+","+airportLatitude+"&hoursBeforeNow=3")
 			.done(awsPirepSuccess)
 			.fail(awsPirepFail)
 	}
 
 	function googleMapsFail() {
-		alert("maps fail")
+		console.log("MAPS FAIL");
 	}
 
 	//hitting enter on input field triggers submit button click
@@ -723,6 +786,7 @@ $(document).ready(function() {
 			.done(googleMapsSuccess)
 			.fail(googleMapsFail)
 	})
+
 
 	$("#radar-image, .fa-expand").on("click", function() {
 		$("#radar-image").toggleClass("double-sized-radar");

@@ -20,6 +20,12 @@ $extra-large-screen: "(max-width: 1200px)";
   border-left: 2px solid black;
   border-right: 2px solid black;
   margin-top: 5px;
+  &:first-child{
+    border-left: none;
+  }
+  &:last-child{
+    border-right: none;
+  }
 }
 
 .col-1 {
