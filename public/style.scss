@@ -20,6 +20,7 @@ $extra-large-screen: "(max-width: 1200px)";
   border-left: 2px solid black;
   border-right: 2px solid black;
   margin-top: 5px;
+  //doesnt border or double border the ends
   &:first-child{
     border-left: none;
   }

@@ -57,7 +57,7 @@ $(document).ready(function() {
 		$errorHeading.empty();
 		if (data["Error"]) {
 			if (airportCode.charAt(0) !== "K") {
-				alert("Try adding a K in-front of your airport code");
+				alert("Try adding a 'K' in front of your airport code");
 			}
 			$errorHeading.text("Airport Not Found");
 			//won't show previous airport search info  if there is an error on the current search
